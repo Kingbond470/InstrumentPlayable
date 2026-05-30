@@ -1,0 +1,176 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Playable Instrument — Design Exploration</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=VT323&display=swap" rel="stylesheet" />
+
+  <script src="https://unpkg.com/react@18.3.1/umd/react.development.js" integrity="sha384-hD6/rw4ppMLGNu3tX5cjIb+uRZ7UkRJ6BPkLpg4hAu/6onKUg4lLsHAs9EBPT82L" crossorigin="anonymous"></script>
+  <script src="https://unpkg.com/react-dom@18.3.1/umd/react-dom.development.js" integrity="sha384-u6aeetuaXnQ38mYT8rp6sbXaQe3NL9t+IBXmnYxwkUI2Hw4bsp2Wvmx4yRQF1uAm" crossorigin="anonymous"></script>
+  <script src="https://unpkg.com/@babel/standalone@7.29.0/babel.min.js" integrity="sha384-m08KidiNqLdpJqLq95G/LEi8Qvjl/xUYll3QILypMoQ65QorJ9Lvtp2RXYGBFj1y" crossorigin="anonymous"></script>
+
+  <style>
+    html, body { margin: 0; padding: 0; height: 100%; font-family: 'Inter', system-ui, sans-serif; }
+    button { font-family: inherit; }
+    #root { width: 100vw; height: 100vh; }
+  </style>
+</head>
+<body>
+  <div id="root"></div>
+
+  <script type="text/babel" src="design-canvas.jsx"></script>
+  <script type="text/babel" src="instruments/shared.jsx"></script>
+  <script type="text/babel" src="instruments/pad-grid.jsx"></script>
+  <script type="text/babel" src="instruments/radial-harp.jsx"></script>
+  <script type="text/babel" src="instruments/sequencer.jsx"></script>
+  <script type="text/babel" src="instruments/hardware.jsx"></script>
+  <script type="text/babel" src="instruments/orbs.jsx"></script>
+  <script type="text/babel" src="instruments/landing.jsx"></script>
+  <script type="text/babel" src="instruments/onboarding.jsx"></script>
+  <script type="text/babel" src="instruments/presets.jsx"></script>
+  <script type="text/babel" src="instruments/build-brief.jsx"></script>
+
+  <script type="text/babel" data-presets="env,react">
+    const { useState } = React;
+
+    function Cover() {
+      const cream = '#efece4', ink = '#0a0a0a', red = '#ff3b1f';
+      return (
+        <div data-screen-label="00 Cover" style={{
+          width: '100%', height: '100%',
+          background: cream, color: ink,
+          padding: '48px 56px',
+          display: 'flex', flexDirection: 'column', justifyContent: 'space-between',
+          fontFamily: '"Helvetica Neue", Helvetica, Arial, sans-serif',
+          position: 'relative', overflow: 'hidden',
+        }}>
+          {/* Dotted backdrop */}
+          <div style={{
+            position: 'absolute', inset: 0, pointerEvents: 'none',
+            backgroundImage: `radial-gradient(${ink}33 1.5px, transparent 1.5px)`,
+            backgroundSize: '32px 32px',
+            maskImage: 'radial-gradient(ellipse at 70% 50%, #000 25%, transparent 75%)',
+          }} />
+          {/* Red accent shape */}
+          <div style={{
+            position: 'absolute', right: -80, top: -80,
+            width: 280, height: 280, background: red,
+            border: `2.5px solid ${ink}`,
+            transform: 'rotate(8deg)',
+          }} />
+
+          <div style={{ position: 'relative', display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
+            <div style={{ display: 'inline-flex', alignItems: 'center', gap: 8,
+              padding: '5px 10px', background: ink, color: cream,
+              fontFamily: 'ui-monospace, monospace', fontSize: 10, letterSpacing: 1.6, fontWeight: 700,
+            }}>
+              <span style={{ width: 6, height: 6, borderRadius: 999, background: red }} />
+              PLAYABLE.INSTRUMENT · v0.1
+            </div>
+            <div style={{ fontFamily: 'ui-monospace, monospace', fontSize: 11, letterSpacing: 1.6, opacity: 0.55, fontWeight: 700 }}>
+              FIVE DIRECTIONS · ONE DESIGN SYSTEM
+            </div>
+          </div>
+
+          <div style={{ position: 'relative' }}>
+            <h1 style={{
+              margin: 0, fontSize: 152, lineHeight: 0.86, letterSpacing: -5.5,
+              fontWeight: 900, textWrap: 'balance',
+            }}>
+              Type a vibe.<br/>
+              <span style={{ color: red }}>Get an instrument</span><br/>
+              you can play.
+            </h1>
+            <p style={{
+              marginTop: 32, maxWidth: 640, fontSize: 18, lineHeight: 1.5, opacity: 0.78,
+              fontWeight: 400,
+            }}>
+              One brief, five interaction models, one visual language. Each direction below interprets
+              the same brief — a tiny in‑browser instrument that tunes itself to whatever the user types —
+              through a different way to play. Click anything. Make noise. (Visually.)
+            </p>
+          </div>
+
+          <div style={{ position: 'relative', display: 'flex', gap: 0, borderTop: `2px solid ${ink}`, paddingTop: 0 }}>
+            {[
+              { tag: '01', name: 'PAD',    note: '4×4 drum grid' },
+              { tag: '02', name: 'HARP',   note: 'Radial strings' },
+              { tag: '03', name: 'PULSE',  note: 'Step sequencer' },
+              { tag: '04', name: 'FIELD',  note: 'Keys + knobs' },
+              { tag: '05', name: 'BLOOM',  note: 'Tap-to-ring orbs' },
+            ].map((d, i) => (
+              <div key={d.tag} style={{
+                flex: 1, padding: '20px 18px 0',
+                borderLeft: i > 0 ? `1.5px solid ${ink}` : 'none',
+              }}>
+                <div style={{ display: 'flex', alignItems: 'center', gap: 8 }}>
+                  <span style={{ width: 7, height: 7, borderRadius: 999, background: red }} />
+                  <span style={{ fontFamily: 'ui-monospace, monospace', fontSize: 11, opacity: 0.6, letterSpacing: 1.4, fontWeight: 700 }}>{d.tag}</span>
+                </div>
+                <div style={{ fontSize: 32, fontWeight: 900, marginTop: 10, letterSpacing: -1 }}>{d.name}</div>
+                <div style={{ fontFamily: 'ui-monospace, monospace', fontSize: 11, opacity: 0.6, marginTop: 4, letterSpacing: 0.4 }}>{d.note}</div>
+              </div>
+            ))}
+          </div>
+        </div>
+      );
+    }
+
+    function App() {
+      return (
+        <DesignCanvas>
+          <DCSection id="cover" title="Playable Instrument" subtitle="Concept exploration · 5 directions · all click-to-play">
+            <DCArtboard id="cover" label="00 · Cover" width={1400} height={840}>
+              <Cover />
+            </DCArtboard>
+          </DCSection>
+
+          <DCSection id="pad-deep" title="PAD · pushed further" subtitle="Landing → onboarding flow → preset library, all in the brutalist PAD aesthetic.">
+            <DCArtboard id="landing" label="L · Landing page"          width={1300} height={2400}>
+              <PadLanding />
+            </DCArtboard>
+            <DCArtboard id="onb-1"   label="O1 · Empty prompt"        width={1300} height={780}>
+              <PadOnboardingPrompt />
+            </DCArtboard>
+            <DCArtboard id="onb-2"   label="O2 · Tuning (generating)" width={1300} height={780}>
+              <PadOnboardingTune />
+            </DCArtboard>
+            <DCArtboard id="onb-3"   label="O3 · Ready to play"       width={1300} height={780}>
+              <PadOnboardingReady />
+            </DCArtboard>
+            <DCArtboard id="library" label="P · Preset library"        width={1300} height={780}>
+              <PadPresets />
+            </DCArtboard>
+            <DCArtboard id="brief"   label="B · Build brief — SPM + TL" width={1400} height={1000}>
+              <PadBuildBrief />
+            </DCArtboard>
+          </DCSection>
+
+          <DCSection id="directions" title="Other directions" subtitle="Same brief, same design system, four different ways to play. All clickable.">
+            <DCArtboard id="pad"   label="01 · PAD — brutalist pad grid"     width={1300} height={820}>
+              <div data-screen-label="01 PAD" style={{ width: '100%', height: '100%' }}><PadGrid /></div>
+            </DCArtboard>
+            <DCArtboard id="harp"  label="02 · HARP — radial strings"        width={1300} height={820}>
+              <div data-screen-label="02 HARP" style={{ width: '100%', height: '100%' }}><RadialHarp /></div>
+            </DCArtboard>
+            <DCArtboard id="pulse" label="03 · PULSE — step sequencer"       width={1300} height={820}>
+              <div data-screen-label="03 PULSE" style={{ width: '100%', height: '100%' }}><StepSequencer /></div>
+            </DCArtboard>
+            <DCArtboard id="field" label="04 · FIELD — pocket hardware"      width={1300} height={820}>
+              <div data-screen-label="04 FIELD" style={{ width: '100%', height: '100%' }}><HardwareField /></div>
+            </DCArtboard>
+            <DCArtboard id="bloom" label="05 · BLOOM — generative orbs"      width={1300} height={820}>
+              <div data-screen-label="05 BLOOM" style={{ width: '100%', height: '100%' }}><BloomOrbs /></div>
+            </DCArtboard>
+          </DCSection>
+        </DesignCanvas>
+      );
+    }
+
+    ReactDOM.createRoot(document.getElementById('root')).render(<App />);
+  </script>
+</body>
+</html>

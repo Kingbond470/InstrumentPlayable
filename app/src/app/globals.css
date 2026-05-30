@@ -1,0 +1,31 @@
+*, *::before, *::after { box-sizing: border-box; }
+
+html, body { margin: 0; padding: 0; height: 100%; }
+
+body {
+  background: #efece4;
+  -webkit-font-smoothing: antialiased;
+  overscroll-behavior: none;
+}
+
+button { font-family: inherit; }
+input  { font-family: inherit; }
+
+@keyframes blink {
+  50% { opacity: 0; }
+}
+
+@keyframes tuneSweep {
+  0%   { transform: translateX(-100%); }
+  100% { transform: translateX(100%); }
+}
+
+@keyframes padRipple {
+  0%   { opacity: 1; transform: scale(0.4); }
+  100% { opacity: 0; transform: scale(1.4); }
+}
+
+@keyframes bobUpDown {
+  0%   { transform: translateY(0); }
+  100% { transform: translateY(-6px); }
+}
