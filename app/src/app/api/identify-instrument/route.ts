@@ -1,9 +1,7 @@
-import Anthropic from '@anthropic-ai/sdk';
 import { NextRequest, NextResponse } from 'next/server';
+import { routeVision, activeProviders } from '@/lib/aiRouter';
 import { resolveInstrument, INSTRUMENT_IDS } from '@/lib/instrumentLibrary';
 import type { IdentifiedInstrument } from '@/types/instrument';
-
-const client = new Anthropic();
 
 const SYSTEM = `You are an expert musicologist and instrument identifier. Given an image, identify the musical instrument shown — whether real, painted, sculpted, or illustrated.
 
@@ -37,10 +35,12 @@ export async function POST(req: NextRequest) {
     const { image } = await req.json() as { image: string };
     if (!image) return NextResponse.json({ error: 'no image' }, { status: 400 });
 
-    if (!process.env.ANTHROPIC_API_KEY) {
+    const active = activeProviders();
+    if (active.length === 0) {
       return NextResponse.json({
-        identified: fallbackIdentification('Add ANTHROPIC_API_KEY to enable AI identification.'),
+        identified: fallbackIdentification('No AI providers configured. Add an API key to .env.local'),
         fallback: true,
+        provider: 'none',
       });
     }
 
@@ -49,23 +49,11 @@ export async function POST(req: NextRequest) {
     const mtype   = (match?.[1] ?? 'image/jpeg') as 'image/jpeg' | 'image/png' | 'image/gif' | 'image/webp';
     const b64data = match?.[2] ?? image;
 
-    const msg = await client.messages.create({
-      model: 'claude-sonnet-4-6',
-      max_tokens: 256,
-      system: SYSTEM,
-      messages: [{
-        role: 'user',
-        content: [
-          { type: 'image', source: { type: 'base64', media_type: mtype, data: b64data } },
-          { type: 'text',  text: 'Identify the instrument in this image.' },
-        ],
-      }],
-    });
+    // Try providers in order; fallthrough on rate limit or error
+    const result = await routeVision(SYSTEM, b64data, mtype);
+    const parsed = JSON.parse(result.text) as IdentifiedInstrument;
 
-    const raw  = msg.content[0].type === 'text' ? msg.content[0].text.trim() : '{}';
-    const parsed = JSON.parse(raw) as IdentifiedInstrument;
-
-    // Resolve the id to ensure it exists in our library
+    // Resolve id to ensure it exists in library
     const def = resolveInstrument(parsed.id);
     const identified: IdentifiedInstrument = {
       id:          def.id,
@@ -76,12 +64,14 @@ export async function POST(req: NextRequest) {
       description: parsed.description || def.description,
     };
 
-    return NextResponse.json({ identified, fallback: false });
+    return NextResponse.json({ identified, fallback: false, provider: result.provider });
 
-  } catch {
+  } catch (err) {
+    console.error('[identify-instrument]', (err as Error).message);
     return NextResponse.json({
       identified: fallbackIdentification('Could not identify instrument.'),
       fallback: true,
+      provider: 'none',
     });
   }
 }

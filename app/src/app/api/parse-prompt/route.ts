@@ -1,8 +1,6 @@
-import Anthropic from '@anthropic-ai/sdk';
 import { NextRequest, NextResponse } from 'next/server';
+import { routeText, activeProviders } from '@/lib/aiRouter';
 import type { KitConfig } from '@/types/kit';
-
-const client = new Anthropic();
 
 const SYSTEM = `You are a music producer AI. Given a text description of a vibe or scene, return a JSON kit configuration. Output ONLY valid JSON — no markdown, no code fences, no explanation.
 
@@ -59,22 +57,31 @@ export async function POST(req: NextRequest) {
     text = body.text?.trim() ?? '';
     if (!text) return NextResponse.json({ error: 'empty prompt' }, { status: 400 });
 
-    if (!process.env.ANTHROPIC_API_KEY) {
-      return NextResponse.json({ kit: fallbackKit(text), fallback: true });
+    const active = activeProviders();
+    if (active.length === 0) {
+      return NextResponse.json({
+        kit: fallbackKit(text),
+        fallback: true,
+        provider: 'none',
+      });
     }
 
-    const msg = await client.messages.create({
-      model: 'claude-haiku-4-5-20251001',
-      max_tokens: 512,
-      system: SYSTEM,
-      messages: [{ role: 'user', content: text }],
+    // Try providers in order; fallthrough on rate limit or error
+    const result = await routeText(SYSTEM, text);
+    const parsed = JSON.parse(result.text);
+
+    return NextResponse.json({
+      kit: { prompt: text, ...parsed } as KitConfig,
+      fallback: false,
+      provider: result.provider,
     });
 
-    const raw = msg.content[0].type === 'text' ? msg.content[0].text : '{}';
-    const parsed = JSON.parse(raw.trim());
-    return NextResponse.json({ kit: { prompt: text, ...parsed } as KitConfig, fallback: false });
-
-  } catch {
-    return NextResponse.json({ kit: fallbackKit(text || 'unknown'), fallback: true });
+  } catch (err) {
+    console.error('[parse-prompt]', (err as Error).message);
+    return NextResponse.json({
+      kit: fallbackKit(text || 'unknown'),
+      fallback: true,
+      provider: 'none',
+    });
   }
 }
