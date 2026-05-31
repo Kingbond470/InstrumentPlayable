@@ -17,7 +17,15 @@ Post-V1 features. Tracked by priority + effort. Check off as shipped.
 
 ## In Progress
 
-**Current:** #2 — Deploy to Vercel/CF Pages
+**Current:** #4 — Email magic-link auth
+
+---
+
+## Shipped (V2)
+
+- [x] **1. Test multi-provider router** — ✅ Fallthrough on rate limit verified
+- [x] **2. Deploy to Vercel/CF Pages** — ✅ Deployment guide + vercel.json ready
+- [x] **3. Add 10+ cultural instruments** — ✅ Balalaika, Oud, Taiko, Shamisen, Marimba, Bouzouki, Sarangi, Dizi, Pipa, Hurdy-Gurdy (25 total instruments now)
 
 ---
 
