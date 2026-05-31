@@ -386,7 +386,7 @@ export default function LandingPage() {
             Born at<br />The Met.
           </h2>
           <p style={{
-            margin: '0 0 clamp(16px, 3vw, 24px)',
+            margin: 0,
             fontSize: 'clamp(14px, 2.5vw, 17px)',
             lineHeight: 1.5,
             opacity: 0.7,
@@ -394,14 +394,6 @@ export default function LandingPage() {
             This project won first place at a Claude × Met Museum hackathon in New York City.
             The challenge: make art more immersive for museum visitors. The solution: let anyone
             photograph an instrument in a painting and play it.
-          </p>
-          <p style={{
-            margin: 0,
-            fontSize: 'clamp(13px, 2vw, 15px)',
-            lineHeight: 1.5,
-            opacity: 0.55,
-          }}>
-            Built with Claude Code. Zero prior coding experience. One afternoon.
           </p>
         </div>
         <div style={{

@@ -35,9 +35,7 @@ Local dev → `npm run dev` at `http://localhost:3000` (see [Getting Started](#g
 
 ## Origin Story
 
-The inspiration came from YouTube shorts exploring interactive music experiences and visual art engagement. The core idea: **let anyone photograph an instrument and play it instantly.**
-
-Built with Claude Code. Zero prior coding experience. 
+The inspiration came from YouTube shorts exploring interactive music experiences and visual art engagement. The core idea: **let anyone photograph an instrument and play it instantly.** 
 
 The product is a full browser application — any instrument, any culture, any era. Real instruments or painted ones. A tabla in a museum or a sitar at home. The focus is on making instruments accessible and playable for anyone, regardless of musical background.
 
@@ -534,4 +532,4 @@ New instrument: add one entry to `src/lib/instrumentLibrary.ts` — no other fil
 
 ---
 
-*Playable Instrument — Born at The Met. Built with Claude Code. 2026.*
+*Playable Instrument — Born at The Met. 2026.*
