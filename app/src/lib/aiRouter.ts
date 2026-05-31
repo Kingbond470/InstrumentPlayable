@@ -68,9 +68,9 @@ async function geminiText(system: string, user: string): Promise<string> {
     method: 'POST',
     headers: { 'Content-Type': 'application/json' },
     body: JSON.stringify({
-      systemInstruction: { parts: [{ text: system }] },
       contents: [{ parts: [{ text: user }] }],
-      generationConfig: { responseMimeType: 'application/json', maxOutputTokens: 512 },
+      systemInstruction: { parts: [{ text: system }] },
+      generationConfig: { maxOutputTokens: 512 },
     }),
   });
   if (!res.ok) throw new Error(`Gemini ${res.status}`);
@@ -142,12 +142,12 @@ async function geminiVision(system: string, b64: string, mime: string): Promise<
     method: 'POST',
     headers: { 'Content-Type': 'application/json' },
     body: JSON.stringify({
-      systemInstruction: { parts: [{ text: system }] },
       contents: [{ parts: [
         { inlineData: { mimeType: mime, data: b64 } },
         { text: 'Identify the instrument in this image.' },
       ]}],
-      generationConfig: { responseMimeType: 'application/json', maxOutputTokens: 256 },
+      systemInstruction: { parts: [{ text: system }] },
+      generationConfig: { maxOutputTokens: 256 },
     }),
   });
   if (!res.ok) throw new Error(`Gemini ${res.status}`);
