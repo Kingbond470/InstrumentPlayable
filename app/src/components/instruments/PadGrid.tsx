@@ -3,6 +3,7 @@
 import React from 'react';
 import Link from 'next/link';
 import { T } from '@/tokens/design';
+import { useViewport } from '@/hooks/useViewport';
 import { PAD_SEQUENCE, type KitConfig, type PadType } from '@/types/kit';
 import { getAudioEngine } from '@/audio/AudioEngine';
 import { buildMidi, type HitEvent } from '@/audio/MidiExport';
@@ -41,6 +42,7 @@ const ghostBtn: React.CSSProperties = {
 };
 
 export default function PadGrid({ kit, onRetune }: Props) {
+  const viewport = useViewport();
   const [active, setActive]       = React.useState<Record<number, number>>({});
   const [count, setCount]         = React.useState(0);
   const [bar, setBar]             = React.useState(0);
@@ -54,6 +56,16 @@ export default function PadGrid({ kit, onRetune }: Props) {
   const [hitCount, setHitCount]   = React.useState(0);
   const hitLog = React.useRef<HitEvent[]>([]);
   // B4 fix: removed unused recT0 ref.
+
+  const isMobile = viewport?.isMobile ?? true;
+  const isTablet = viewport?.isTablet ?? false;
+
+  // Responsive grid layout
+  const gridLayout = isMobile
+    ? { columns: '1fr', rows: 'auto auto 1fr 56px' }
+    : isTablet
+    ? { columns: '180px 1fr', rows: '48px 1fr 56px' }
+    : { columns: '320px 1fr', rows: '64px 1fr 56px' };
 
   // P2 fix: update browser tab title to the current kit.
   React.useEffect(() => {
@@ -151,37 +163,50 @@ export default function PadGrid({ kit, onRetune }: Props) {
       width: '100%', height: '100%', background: T.cream, color: T.ink,
       fontFamily: T.font,
       display: 'grid',
-      gridTemplateColumns: '320px 1fr',
-      gridTemplateRows: '64px 1fr 56px',
+      gridTemplateColumns: gridLayout.columns,
+      gridTemplateRows: gridLayout.rows,
     }}>
       {/* Top bar */}
       <div style={{
         gridColumn: '1 / -1',
         display: 'flex', alignItems: 'center', justifyContent: 'space-between',
-        padding: '0 24px', borderBottom: `2px solid ${T.ink}`,
+        padding: isMobile ? '0 12px' : isTablet ? '0 16px' : '0 24px',
+        borderBottom: `2px solid ${T.ink}`,
+        gap: isMobile ? 8 : 12,
+        flexWrap: 'wrap',
       }}>
-        <div style={{ display: 'flex', alignItems: 'baseline', gap: 14 }}>
-          <Link href="/" style={{ fontWeight: 900, fontSize: 22, letterSpacing: -0.5, textDecoration: 'none', color: T.ink }}>
+        <div style={{ display: 'flex', alignItems: 'baseline', gap: isMobile ? 6 : 14 }}>
+          <Link href="/" style={{
+            fontWeight: 900,
+            fontSize: isMobile ? 16 : isTablet ? 18 : 22,
+            letterSpacing: -0.5,
+            textDecoration: 'none',
+            color: T.ink,
+          }}>
             PAD/01
           </Link>
-          <span style={{ fontFamily: T.mono, fontSize: 10, letterSpacing: 1.6, opacity: 0.55 }}>
-            {kit.key} · {kit.bpm} BPM · {kit.mood.toUpperCase()}
-          </span>
+          {!isMobile && (
+            <span style={{ fontFamily: T.mono, fontSize: isMobile ? 8 : 10, letterSpacing: 1.6, opacity: 0.55 }}>
+              {kit.key} · {kit.bpm} BPM · {kit.mood.toUpperCase()}
+            </span>
+          )}
         </div>
-        <div style={{ display: 'flex', alignItems: 'center', gap: 12 }}>
+        <div style={{ display: 'flex', alignItems: 'center', gap: isMobile ? 6 : 12, flex: isMobile ? '1 1 100%' : 'auto' }}>
           <PromptPill value={promptVal} onChange={setPromptVal} onSubmit={onRetune} accent={T.red} />
           <Link href="/library" style={{
-            fontFamily: T.mono, fontSize: 10, letterSpacing: 1.4, fontWeight: 700,
+            fontFamily: T.mono, fontSize: isMobile ? 8 : 10, letterSpacing: 1.4, fontWeight: 700,
             textDecoration: 'none', color: T.ink, opacity: 0.6,
-            padding: '6px 10px', border: `1.5px solid ${T.ink}44`,
+            padding: isMobile ? '4px 6px' : '6px 10px', border: `1.5px solid ${T.ink}44`,
           }}>LIBRARY</Link>
         </div>
       </div>
 
       {/* Left rail */}
+      {!isMobile && (
       <div style={{
-        borderRight: `2px solid ${T.ink}`, padding: '28px 24px',
-        display: 'flex', flexDirection: 'column', gap: 20,
+        borderRight: `2px solid ${T.ink}`,
+        padding: isTablet ? '12px 16px' : '28px 24px',
+        display: 'flex', flexDirection: 'column', gap: isTablet ? 12 : 20,
         overflow: 'hidden',
       }}>
         <div>
@@ -271,14 +296,17 @@ export default function PadGrid({ kit, onRetune }: Props) {
 
         <Ticker value={String(count).padStart(4, '0')} label="HITS" />
       </div>
+      )}
+
 
       {/* 4×4 pad grid */}
       <div style={{
-        position: 'relative', padding: 28,
+        position: 'relative',
+        padding: isMobile ? 12 : isTablet ? 16 : 28,
         display: 'grid',
         gridTemplateColumns: 'repeat(4, 1fr)',
         gridTemplateRows: 'repeat(4, 1fr)',
-        gap: 14,
+        gap: isMobile ? 8 : isTablet ? 10 : 14,
       }}>
         {PAD_SEQUENCE.map((padType, i) => {
           const on = !!active[i];
@@ -291,7 +319,8 @@ export default function PadGrid({ kit, onRetune }: Props) {
                 border: `2px solid ${T.ink}`,
                 background: on ? T.ink : T.cream,
                 color: on ? T.cream : T.ink,
-                cursor: 'pointer', padding: 18,
+                cursor: 'pointer',
+                padding: isMobile ? 10 : isTablet ? 12 : 18,
                 display: 'flex', flexDirection: 'column',
                 justifyContent: 'space-between', alignItems: 'flex-start',
                 textAlign: 'left',
@@ -301,10 +330,15 @@ export default function PadGrid({ kit, onRetune }: Props) {
                 boxShadow: on ? 'none' : `4px 4px 0 0 ${T.ink}`,
               }}
             >
-              <span style={{ fontFamily: T.mono, fontSize: 10, letterSpacing: 1.4, opacity: 0.6 }}>
+              <span style={{ fontFamily: T.mono, fontSize: isMobile ? 8 : 10, letterSpacing: 1.4, opacity: 0.6 }}>
                 {String(i + 1).padStart(2, '0')}
               </span>
-              <span style={{ fontSize: 38, fontWeight: 900, letterSpacing: -1, lineHeight: 1 }}>
+              <span style={{
+                fontSize: isMobile ? 24 : isTablet ? 28 : 38,
+                fontWeight: 900,
+                letterSpacing: -1,
+                lineHeight: 1,
+              }}>
                 {padType}
               </span>
               {on && (
@@ -330,7 +364,9 @@ export default function PadGrid({ kit, onRetune }: Props) {
             borderRight: i < 15 ? `1px solid ${T.ink}22` : 'none',
             background: bar === i ? T.ink : 'transparent',
             display: 'flex', alignItems: 'center', justifyContent: 'center',
-            fontFamily: T.mono, fontSize: 10, letterSpacing: 1,
+            fontFamily: T.mono,
+            fontSize: isMobile ? 7 : 10,
+            letterSpacing: 1,
             color: bar === i ? T.cream : `${T.ink}66`,
             transition: 'background 60ms',
           }}>

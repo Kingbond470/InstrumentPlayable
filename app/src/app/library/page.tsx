@@ -4,6 +4,7 @@ import React from 'react';
 import Link from 'next/link';
 import { useRouter } from 'next/navigation';
 import { T } from '@/tokens/design';
+import { useViewport } from '@/hooks/useViewport';
 import type { KitConfig } from '@/types/kit';
 import { loadKits } from '@/lib/kitStore';
 import { encodeKit } from '@/lib/shareUrl';
@@ -17,10 +18,17 @@ const FEATURED: KitConfig[] = [
 ];
 
 export default function LibraryPage() {
+  const viewport = useViewport();
   const router   = useRouter();
   const [tab, setTab]   = React.useState<'mine' | 'featured'>('mine');
   const [mine, setMine] = React.useState<KitConfig[]>([]);
   const [search, setSearch] = React.useState('');
+
+  const isMobile = viewport?.isMobile ?? true;
+  const isTablet = viewport?.isTablet ?? false;
+
+  // Responsive grid: 1-col mobile, 2-col tablet, 3-col desktop
+  const gridColumns = isMobile ? '1fr' : isTablet ? 'repeat(2, 1fr)' : 'repeat(3, 1fr)';
 
   React.useEffect(() => { setMine(loadKits()); }, []);
 
@@ -41,79 +49,163 @@ export default function LibraryPage() {
     }}>
       {/* Top bar */}
       <div style={{
-        borderBottom: `2px solid ${T.ink}`, padding: '0 28px',
-        display: 'flex', alignItems: 'center', justifyContent: 'space-between',
-        position: 'sticky', top: 0, background: T.cream, zIndex: 10,
+        borderBottom: `2px solid ${T.ink}`,
+        padding: isMobile ? '0 12px' : isTablet ? '0 16px' : '0 28px',
+        display: 'flex',
+        alignItems: 'center',
+        justifyContent: 'space-between',
+        position: 'sticky',
+        top: 0,
+        background: T.cream,
+        zIndex: 10,
+        minHeight: 50,
+        flexWrap: 'wrap',
+        gap: isMobile ? 8 : 12,
       }}>
-        <div style={{ display: 'flex', alignItems: 'center', gap: 24 }}>
+        <div style={{ display: 'flex', alignItems: 'center', gap: isMobile ? 12 : 24 }}>
           <Link href="/" style={{
-            fontWeight: 900, fontSize: 20, letterSpacing: -0.5,
-            textDecoration: 'none', color: T.ink,
+            fontWeight: 900,
+            fontSize: isMobile ? 16 : 20,
+            letterSpacing: -0.5,
+            textDecoration: 'none',
+            color: T.ink,
           }}>PAD/01</Link>
-          <span style={{ fontFamily: T.mono, fontSize: 10, letterSpacing: 1.6, opacity: 0.55 }}>
-            {tab === 'mine' ? `${mine.length} SAVED KITS` : `${FEATURED.length} FEATURED`}
-          </span>
+          {!isMobile && (
+            <span style={{
+              fontFamily: T.mono,
+              fontSize: 10,
+              letterSpacing: 1.6,
+              opacity: 0.55,
+            }}>
+              {tab === 'mine' ? `${mine.length} SAVED KITS` : `${FEATURED.length} FEATURED`}
+            </span>
+          )}
         </div>
 
-        <div style={{ display: 'flex', alignItems: 'center', gap: 10 }}>
+        <div style={{
+          display: 'flex',
+          alignItems: 'center',
+          gap: isMobile ? 6 : 10,
+          flex: isMobile ? '1 1 100%' : 'auto',
+          justifyContent: isMobile ? 'flex-start' : 'auto',
+          flexWrap: 'wrap',
+        }}>
           {/* Tabs */}
           <div style={{ display: 'flex', border: `1.5px solid ${T.ink}` }}>
             {(['mine', 'featured'] as const).map((t) => (
               <button key={t} onClick={() => setTab(t)} style={{
-                padding: '7px 14px',
+                padding: isMobile ? '6px 8px' : '7px 14px',
                 background: tab === t ? T.ink : 'transparent',
                 color: tab === t ? T.cream : T.ink,
-                border: 'none', borderRight: t === 'mine' ? `1.5px solid ${T.ink}` : 'none',
-                fontFamily: T.mono, fontSize: 11, letterSpacing: 1.4, fontWeight: 700,
+                border: 'none',
+                borderRight: t === 'mine' ? `1.5px solid ${T.ink}` : 'none',
+                fontFamily: T.mono,
+                fontSize: isMobile ? 8 : 11,
+                letterSpacing: 1.4,
+                fontWeight: 700,
                 cursor: 'pointer',
+                whiteSpace: 'nowrap',
               }}>
-                {t === 'mine' ? `MINE · ${mine.length.toString().padStart(2,'0')}` : `FEATURED · ${String(FEATURED.length).padStart(2,'0')}`}
+                {isMobile ? (t === 'mine' ? 'MINE' : 'FEATURED') : (t === 'mine' ? `MINE · ${mine.length.toString().padStart(2,'0')}` : `FEATURED · ${String(FEATURED.length).padStart(2,'0')}`)}
               </button>
             ))}
           </div>
 
-          <input
-            placeholder="search prompts…"
-            value={search}
-            onChange={(e) => setSearch(e.target.value)}
-            style={{
-              padding: '8px 12px', border: `1.5px solid ${T.ink}`,
-              background: T.cream, fontFamily: T.mono, fontSize: 11,
-              color: T.ink, width: 220, outline: 'none', borderRadius: 0,
-            }}
-          />
+          {!isMobile && (
+            <input
+              placeholder="search prompts…"
+              value={search}
+              onChange={(e) => setSearch(e.target.value)}
+              style={{
+                padding: '8px 12px',
+                border: `1.5px solid ${T.ink}`,
+                background: T.cream,
+                fontFamily: T.mono,
+                fontSize: 11,
+                color: T.ink,
+                width: 220,
+                outline: 'none',
+                borderRadius: 0,
+              }}
+            />
+          )}
 
           <Link href="/play" style={{
-            padding: '8px 14px', background: T.ink, color: T.cream,
-            textDecoration: 'none', fontFamily: T.mono, fontSize: 11,
-            letterSpacing: 1.4, fontWeight: 700,
-            boxShadow: `4px 4px 0 0 ${T.red}`,
-          }}>+ NEW KIT</Link>
+            padding: isMobile ? '6px 8px' : '8px 14px',
+            background: T.ink,
+            color: T.cream,
+            textDecoration: 'none',
+            fontFamily: T.mono,
+            fontSize: isMobile ? 8 : 11,
+            letterSpacing: 1.4,
+            fontWeight: 700,
+            boxShadow: isMobile ? `2px 2px 0 0 ${T.red}` : `4px 4px 0 0 ${T.red}`,
+            whiteSpace: 'nowrap',
+          }}>+ NEW</Link>
         </div>
       </div>
 
       {/* Grid */}
-      <div style={{ padding: 28, overflowY: 'auto' }}>
+      <div style={{
+        padding: isMobile ? 12 : isTablet ? 16 : 28,
+        overflowY: 'auto',
+      }}>
         {visible.length === 0 ? (
           <div style={{
-            display: 'flex', flexDirection: 'column', alignItems: 'center',
-            justifyContent: 'center', minHeight: 300, gap: 16, opacity: 0.55,
+            display: 'flex',
+            flexDirection: 'column',
+            alignItems: 'center',
+            justifyContent: 'center',
+            minHeight: 300,
+            gap: 16,
+            opacity: 0.55,
           }}>
-            <p style={{ fontFamily: T.mono, fontSize: 12, letterSpacing: 1.4, margin: 0 }}>
+            <p style={{
+              fontFamily: T.mono,
+              fontSize: isMobile ? 10 : 12,
+              letterSpacing: 1.4,
+              margin: 0,
+            }}>
               {tab === 'mine' ? 'NO SAVED KITS YET.' : 'NO RESULTS.'}
             </p>
+            {isMobile && (
+              <input
+                placeholder="search…"
+                value={search}
+                onChange={(e) => setSearch(e.target.value)}
+                style={{
+                  padding: '8px 12px',
+                  border: `1.5px solid ${T.ink}`,
+                  background: T.cream,
+                  fontFamily: T.mono,
+                  fontSize: 10,
+                  color: T.ink,
+                  width: '100%',
+                  maxWidth: 300,
+                  outline: 'none',
+                  borderRadius: 0,
+                }}
+              />
+            )}
             {tab === 'mine' && (
               <Link href="/play" style={{
-                padding: '10px 18px', background: T.ink, color: T.cream,
-                textDecoration: 'none', fontFamily: T.mono, fontSize: 11,
-                letterSpacing: 1.4, fontWeight: 700,
+                padding: isMobile ? '8px 14px' : '10px 18px',
+                background: T.ink,
+                color: T.cream,
+                textDecoration: 'none',
+                fontFamily: T.mono,
+                fontSize: isMobile ? 10 : 11,
+                letterSpacing: 1.4,
+                fontWeight: 700,
               }}>MAKE YOUR FIRST KIT →</Link>
             )}
           </div>
         ) : (
           <div style={{
-            display: 'grid', gridTemplateColumns: 'repeat(3, 1fr)',
-            gap: 18, alignContent: 'start',
+            display: 'grid',
+            gridTemplateColumns: gridColumns,
+            gap: isMobile ? 12 : isTablet ? 14 : 18,
+            alignContent: 'start',
           }}>
             {visible.map((k, i) => (
               <KitCard
