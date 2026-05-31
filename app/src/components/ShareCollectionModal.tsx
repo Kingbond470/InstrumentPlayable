@@ -1,6 +1,7 @@
 'use client';
 
 import { useState } from 'react';
+import { useViewport } from '@/hooks/useViewport';
 import type { InstrumentCollection } from '@/lib/collection';
 import { getCollectionShareUrl } from '@/lib/collection';
 import { trackEvent } from '@/lib/analytics';
@@ -20,8 +21,18 @@ export default function ShareCollectionModal({
   collection,
   onClose,
 }: ShareCollectionModalProps) {
+  const viewport = useViewport();
   const [copied, setCopied] = useState(false);
   const shareUrl = getCollectionShareUrl(collection);
+
+  const isMobile = viewport?.isMobile ?? true;
+  const isTablet = viewport?.isTablet ?? false;
+
+  // Responsive modal width
+  const modalWidth = isMobile ? '95vw' : isTablet ? '80vw' : '500px';
+  const modalMaxWidth = isMobile ? '100%' : isTablet ? '600px' : '500px';
+  const padding = isMobile ? '16px' : '24px';
+  const gap = isMobile ? '6px' : '8px';
 
   const handleCopy = async () => {
     try {
@@ -91,13 +102,14 @@ export default function ShareCollectionModal({
           background: '#1a1a1a',
           border: '1px solid #333',
           borderRadius: '8px',
-          padding: '24px',
-          width: '90%',
-          maxWidth: '500px',
+          padding,
+          width: modalWidth,
+          maxWidth: modalMaxWidth,
           fontFamily: 'ui-monospace, monospace',
+          margin: isMobile ? '10px' : '0',
         }}
       >
-        <h2 style={{ marginTop: 0, fontSize: '16px', marginBottom: '16px', color: '#efece4' }}>
+        <h2 style={{ marginTop: 0, fontSize: isMobile ? '14px' : '16px', marginBottom: padding, color: '#efece4' }}>
           Share Collection
         </h2>
 
@@ -107,28 +119,29 @@ export default function ShareCollectionModal({
             background: '#0a0a0a',
             border: '1px solid #333',
             borderRadius: '4px',
-            padding: '12px',
-            marginBottom: '16px',
+            padding: isMobile ? '10px' : '12px',
+            marginBottom: padding,
           }}
         >
-          <div style={{ fontSize: '12px', color: '#999', marginBottom: '4px' }}>Collection:</div>
-          <div style={{ fontSize: '14px', color: '#efece4', fontWeight: 'bold', marginBottom: '8px' }}>
+          <div style={{ fontSize: isMobile ? '11px' : '12px', color: '#999', marginBottom: '4px' }}>Collection:</div>
+          <div style={{ fontSize: isMobile ? '12px' : '14px', color: '#efece4', fontWeight: 'bold', marginBottom: '8px' }}>
             {collection.name}
           </div>
-          <div style={{ fontSize: '11px', color: '#666' }}>
+          <div style={{ fontSize: isMobile ? '10px' : '11px', color: '#666' }}>
             {collection.instruments.length} instrument{collection.instruments.length !== 1 ? 's' : ''}
           </div>
         </div>
 
         {/* Share URL */}
-        <div style={{ marginBottom: '16px' }}>
-          <label style={{ display: 'block', fontSize: '12px', marginBottom: '6px', color: '#999' }}>
+        <div style={{ marginBottom: padding }}>
+          <label style={{ display: 'block', fontSize: isMobile ? '11px' : '12px', marginBottom: '6px', color: '#999' }}>
             Share Link
           </label>
           <div
             style={{
               display: 'flex',
-              gap: '8px',
+              flexDirection: isMobile ? 'column' : 'row',
+              gap,
             }}
           >
             <input
@@ -137,28 +150,30 @@ export default function ShareCollectionModal({
               readOnly
               style={{
                 flex: 1,
-                padding: '8px 12px',
+                padding: isMobile ? '10px 10px' : '8px 12px',
                 background: '#0a0a0a',
                 border: '1px solid #333',
                 borderRadius: '4px',
                 color: '#efece4',
-                fontSize: '11px',
+                fontSize: isMobile ? '10px' : '11px',
                 fontFamily: 'monospace',
                 boxSizing: 'border-box',
+                minWidth: 0,
               }}
             />
             <button
               onClick={handleCopy}
               style={{
-                padding: '8px 16px',
+                padding: isMobile ? '10px 12px' : '8px 16px',
                 background: copied ? '#4caf50' : '#222',
                 border: '1px solid #444',
                 borderRadius: '4px',
                 color: copied ? '#000' : '#efece4',
                 cursor: 'pointer',
-                fontSize: '12px',
+                fontSize: isMobile ? '11px' : '12px',
                 fontFamily: 'ui-monospace, monospace',
                 fontWeight: 'bold',
+                flexShrink: 0,
               }}
             >
               {copied ? '✓ Copied' : 'Copy'}
@@ -167,22 +182,22 @@ export default function ShareCollectionModal({
         </div>
 
         {/* Social Share Buttons */}
-        <div style={{ marginBottom: '16px' }}>
-          <label style={{ display: 'block', fontSize: '12px', marginBottom: '8px', color: '#999' }}>
+        <div style={{ marginBottom: padding }}>
+          <label style={{ display: 'block', fontSize: isMobile ? '11px' : '12px', marginBottom: gap, color: '#999' }}>
             Share On:
           </label>
-          <div style={{ display: 'flex', gap: '8px' }}>
+          <div style={{ display: 'flex', gap }}>
             <button
               onClick={shareOnTwitter}
               style={{
                 flex: 1,
-                padding: '10px',
+                padding: isMobile ? '10px 8px' : '10px',
                 background: '#1da1f2',
                 border: 'none',
                 borderRadius: '4px',
                 color: '#fff',
                 cursor: 'pointer',
-                fontSize: '12px',
+                fontSize: isMobile ? '10px' : '12px',
                 fontFamily: 'ui-monospace, monospace',
                 fontWeight: 'bold',
               }}
@@ -193,13 +208,13 @@ export default function ShareCollectionModal({
               onClick={shareOnDiscord}
               style={{
                 flex: 1,
-                padding: '10px',
+                padding: isMobile ? '10px 8px' : '10px',
                 background: '#5865f2',
                 border: 'none',
                 borderRadius: '4px',
                 color: '#fff',
                 cursor: 'pointer',
-                fontSize: '12px',
+                fontSize: isMobile ? '10px' : '12px',
                 fontFamily: 'ui-monospace, monospace',
                 fontWeight: 'bold',
               }}
@@ -214,13 +229,13 @@ export default function ShareCollectionModal({
           onClick={onClose}
           style={{
             width: '100%',
-            padding: '10px',
+            padding: isMobile ? '10px 12px' : '10px',
             background: '#222',
             border: '1px solid #444',
             borderRadius: '4px',
             color: '#efece4',
             cursor: 'pointer',
-            fontSize: '12px',
+            fontSize: isMobile ? '11px' : '12px',
             fontFamily: 'ui-monospace, monospace',
           }}
         >
