@@ -3,8 +3,8 @@
  * Tries each configured provider in priority order; falls through on any error
  * (rate limit, auth failure, network error).
  *
- * Text order:   Anthropic → OpenAI → Gemini → DeepSeek → xAI
- * Vision order: Anthropic → OpenAI → Gemini → xAI
+ * Text order:   Gemini → Anthropic → OpenAI → DeepSeek → xAI
+ * Vision order: Gemini → Anthropic → OpenAI → xAI
  *
  * Add a key to .env.local to activate that provider.
  * No new npm packages — raw fetch for all non-Anthropic providers.
@@ -22,8 +22,8 @@ const DEFS: Record<Provider, { envKey: string; label: string; vision: boolean }>
   xai:       { envKey: 'XAI_API_KEY',       label: 'Grok',     vision: true  },
 };
 
-const TEXT_ORDER:   Provider[] = ['anthropic', 'openai', 'gemini', 'deepseek', 'xai'];
-const VISION_ORDER: Provider[] = ['anthropic', 'openai', 'gemini', 'xai'];
+const TEXT_ORDER:   Provider[] = ['gemini', 'anthropic', 'openai', 'deepseek', 'xai'];
+const VISION_ORDER: Provider[] = ['gemini', 'anthropic', 'openai', 'xai'];
 
 const key = (p: Provider) => process.env[DEFS[p].envKey] ?? '';
 const has = (p: Provider) => key(p).length > 0;
