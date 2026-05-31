@@ -17,7 +17,7 @@ Post-V1 features. Tracked by priority + effort. Check off as shipped.
 
 ## In Progress
 
-**Current:** #4 — Email magic-link auth (foundation built, awaiting KV + email service)
+**Current:** #6 — OG image generation
 
 ---
 
@@ -26,6 +26,8 @@ Post-V1 features. Tracked by priority + effort. Check off as shipped.
 - [x] **1. Test multi-provider router** — ✅ Fallthrough on rate limit verified
 - [x] **2. Deploy to Vercel/CF Pages** — ✅ Deployment guide + vercel.json ready
 - [x] **3. Add 10+ cultural instruments** — ✅ Balalaika, Oud, Taiko, Shamisen, Marimba, Bouzouki, Sarangi, Dizi, Pipa, Hurdy-Gurdy (25 total instruments now)
+- [x] **4. Email magic-link auth** — ✅ Foundation built (KV + email service TBD)
+- [x] **5. Analytics tracking** — ✅ Vercel Web Analytics + custom event hooks
 
 ---
 
