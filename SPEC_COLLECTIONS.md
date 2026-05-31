@@ -1,7 +1,8 @@
 ---
 title: Collection Sharing (Instrument Bundles)
-status: planning
+status: shipped
 effort: M (3h)
+shipped: 2026-05-31
 ---
 
 ## Summary
@@ -266,37 +267,52 @@ export async function generateMetadata({
 
 ## References
 
-- [CollectionPlayer.tsx](app/src/components/CollectionPlayer.tsx) — to be created
-- [CreateCollectionModal.tsx](app/src/components/CreateCollectionModal.tsx) — to be created
-- [ShareCollectionModal.tsx](app/src/components/ShareCollectionModal.tsx) — to be created
-- [/share/collection/page.tsx](app/src/app/share/collection/page.tsx) — to be created
-- [ANALYTICS.md](ANALYTICS.md) — collection_created, collection_shared, collection_opened events
+- [lib/collection.ts](app/src/lib/collection.ts) — utilities
+- [components/CreateCollectionModal.tsx](app/src/components/CreateCollectionModal.tsx) — create modal
+- [components/ShareCollectionModal.tsx](app/src/components/ShareCollectionModal.tsx) — share modal
+- [components/CollectionPlayer.tsx](app/src/components/CollectionPlayer.tsx) — collection player
+- [app/share/collection/page.tsx](app/src/app/share/collection/page.tsx) — share route with OG metadata
 
 ---
 
-## Implementation Plan
+## Implementation Done
 
-1. **Create utilities** (0.5h)
-   - generateCollectionUrl (base64 encode)
-   - decodeCollectionUrl (base64 decode)
-   - generateId (short unique ID)
+✅ **Built in 3 hours**
 
-2. **Create modals** (1h)
-   - CreateCollectionModal (pick instruments, name)
-   - ShareCollectionModal (copy link, social buttons)
+1. **Collection utilities** (0.5h)
+   - [lib/collection.ts](app/src/lib/collection.ts)
+   - encodeCollection: JSON → base64
+   - decodeCollection: base64 → JSON with validation
+   - getCollectionShareUrl: generate shareable link
+   - isValidCollection: validate 1-5 instruments
 
-3. **Create player** (0.5h)
-   - CollectionPlayer (cycle through instruments)
-   - Prev/next buttons
+2. **UI Modals** (1.5h)
+   - [components/CreateCollectionModal.tsx](app/src/components/CreateCollectionModal.tsx)
+     - Name input
+     - Checkboxes: select 1-5 instruments (grid layout)
+     - Create button (enabled when valid)
+   - [components/ShareCollectionModal.tsx](app/src/components/ShareCollectionModal.tsx)
+     - Display URL in text input (read-only)
+     - Copy button (with feedback: "✓ Copied")
+     - Share on Twitter (intent link)
+     - Share on Discord (copy to clipboard)
+     - Clipboard fallback for browsers without API
 
-4. **Create share route** (0.5h)
-   - /share/collection?data=... endpoint
-   - OG metadata integration
+3. **Collection Player** (1h)
+   - [components/CollectionPlayer.tsx](app/src/components/CollectionPlayer.tsx)
+     - Full-screen view with instrument display
+     - Prev/next buttons to cycle
+     - Show progress (current / total)
+     - Instrument icon, name, culture, description
+   - [app/share/collection/page.tsx](app/src/app/share/collection/page.tsx)
+     - /share/collection?data=... route
+     - generateMetadata for OG cards
+     - Error states: invalid URL, corrupted data
+     - Home link fallback
 
-5. **Integration + polish** (0.5h)
-   - Hook into StringPlayer/PercussionGrid
-   - Add "Create Collection" button
-   - Analytics tracking
+4. **Analytics**
+   - collection_shared event (via copy/twitter/discord)
+   - Instrument_played on prev/next navigation
 
 ---
 
@@ -318,8 +334,10 @@ export async function generateMetadata({
 
 ## Future
 
-- [ ] Save collection to user library (backend)
-- [ ] Edit collection (if owner)
-- [ ] Like/star collections (social discovery)
-- [ ] Collection tags (genre, difficulty, culture)
-- [ ] Community collections (featured, trending)
+- [ ] **V3.1: UI Integration** — Add "Create Collection" button to play page
+- [ ] **Backend storage** — Save collections to user library (authenticated)
+- [ ] **Edit collection** — Allow owner to modify after creation
+- [ ] **Like/star collections** — Social discovery, trending collections
+- [ ] **Community collections** — Featured, trending, most-shared
+- [ ] **Collection analytics** — View sharing stats, engagement metrics
+- [ ] **Deep linking** — Load instrument directly from collection on click

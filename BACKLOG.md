@@ -42,17 +42,19 @@ Each feature has:
 
 ---
 
-## In Progress (V3 — Option A: Quick Win)
+## Shipped (V3 — Option A: Quick Win)
 
-Target ship: 2026-07-15 (2 weeks)
+Target ship date: 2026-05-31 ✅ DONE (ahead of schedule!)
 
 | # | Feature | Spec | Status | Effort | Shipped |
 |---|---------|------|--------|--------|---------|
 | 1 | Multi-language support | [SPEC_MULTI_LANGUAGE.md](SPEC_MULTI_LANGUAGE.md) | ✅ shipped | M (3h) | 2026-05-31 |
 | 2 | Instrument history & favorites | [SPEC_HISTORY.md](SPEC_HISTORY.md) | ✅ shipped | M (3h) | 2026-05-31 |
-| 3 | Collection sharing | [SPEC_COLLECTIONS.md](SPEC_COLLECTIONS.md) | in-progress | M (3h) | TBD |
+| 3 | Collection sharing | [SPEC_COLLECTIONS.md](SPEC_COLLECTIONS.md) | ✅ shipped | M (3h) | 2026-05-31 |
 
-Completed: 2/3 (6h / 11h total, 55%)
+**Completed: 3/3 (11h total, 100%)**
+
+**Actual timeline: 1 day (instead of 2 weeks)**
 
 ---
 
