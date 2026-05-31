@@ -42,24 +42,29 @@ Each feature has:
 
 ---
 
-## Planning (V3+)
+## In Progress (V3 — Option A: Quick Win)
 
-Next priorities (specs TBD):
+Target ship: 2026-07-15 (2 weeks)
 
-- [ ] **Multi-language support** — i18n (Spanish, Mandarin, Hindi, Arabic)
-- [ ] **Instrument history** — recently played, favorites
-- [ ] **Collection sharing** — save user's favorite 5 instruments, share as bundle
-- [ ] **Breath modulation** — wind instruments: envelope affected by intensity
-- [ ] **Vibrato/tremolo** — wind UI micro-movements → pitch/amplitude wobble
-- [ ] **MIDI file playback** — drag SMF → playback over instrument
-- [ ] **Keyboard visualization** — piano roll / note names overlay
-- [ ] **User library sync** — authenticated kits persist across devices
+| # | Feature | Spec | Status | Effort |
+|---|---------|------|--------|--------|
+| 1 | Multi-language support | [SPEC_MULTI_LANGUAGE.md](SPEC_MULTI_LANGUAGE.md) | planning | L (5h) |
+| 2 | Instrument history & favorites | [SPEC_HISTORY.md](SPEC_HISTORY.md) | planning | M (3h) |
+| 3 | Collection sharing | [SPEC_COLLECTIONS.md](SPEC_COLLECTIONS.md) | planning | M (3h) |
 
-To start V3:
-1. Create `SPEC_<feature>.md` for each (copy SPEC_TEMPLATE.md)
-2. Discuss with team (SPM/TL/Designer)
-3. Add to backlog with effort estimate
-4. Implement: spec → phases → PR → ship
+Total: 11h effort
+
+---
+
+## Future Candidates (V3.1+)
+
+If V3 ships early, or for future planning:
+
+- [ ] **Breath modulation** — wind instruments: envelope affected by intensity (M, 3h) [SPEC_WIND_MODULATION.md]
+- [ ] **Vibrato/tremolo** — wind UI micro-movements → pitch/amplitude wobble (L, 5h) [SPEC_WIND_EFFECTS.md]
+- [ ] **MIDI file playback** — drag SMF → playback over instrument (L, 6h) [SPEC_MIDI_PLAYBACK.md]
+- [ ] **Keyboard visualization** — piano roll / note names overlay (M, 4h) [SPEC_KEYBOARD_VIZ.md]
+- [ ] **User library sync** — authenticated kits persist across devices (XL, 10h) [SPEC_LIBRARY_SYNC.md]
 
 ---
 
