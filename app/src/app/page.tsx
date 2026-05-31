@@ -1,13 +1,25 @@
 import Link from 'next/link';
 import type { Metadata } from 'next';
 import { T } from '@/tokens/design';
+import { PAGE_META, generateFAQSchema, generateBreadcrumbs, BASE_URL } from '@/lib/seo';
+
+const pageMeta = PAGE_META['/'];
 
 export const metadata: Metadata = {
-  title: 'Playable Instrument — Photograph it. Play it.',
-  description: 'Point your camera at any instrument — real, painted, or sculpted. AI identifies it. You play it instantly.',
+  title: pageMeta.title,
+  description: pageMeta.description,
+  keywords: pageMeta.keywords,
   openGraph: {
-    title: 'Playable Instrument — Photograph it. Play it.',
-    description: 'Any instrument. Any culture. Any era. Point. Identify. Play.',
+    title: pageMeta.title,
+    description: pageMeta.description,
+    url: BASE_URL,
+    type: 'website',
+    images: [{ url: `${BASE_URL}/og-home.png`, width: 1200, height: 630, alt: 'Play musical instruments' }],
+  },
+  twitter: {
+    card: 'summary_large_image',
+    title: pageMeta.title,
+    description: pageMeta.description,
   },
 };
 

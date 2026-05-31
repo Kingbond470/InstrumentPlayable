@@ -1,0 +1,35 @@
+# Playable Instrument — robots.txt
+# Generated for SEO optimization
+
+# Default rules for all user-agents
+User-agent: *
+Allow: /
+Allow: /api/og
+Allow: /capture
+Allow: /play
+Allow: /library
+Allow: /share/collection
+
+# Disallow admin/internal paths
+Disallow: /api/identify-instrument
+Disallow: /api/parse-prompt
+Disallow: /api/auth
+
+# Crawl delays
+Crawl-delay: 1
+
+# Sitemaps
+Sitemap: https://instrument-playable-nearawayofficial-3874s-projects.vercel.app/sitemap.xml
+
+# Specific rules for common bots
+User-agent: Googlebot
+Disallow: /api/identify-instrument
+Disallow: /api/parse-prompt
+Disallow: /api/auth
+Allow: /
+
+User-agent: Bingbot
+Disallow: /api/identify-instrument
+Disallow: /api/parse-prompt
+Disallow: /api/auth
+Allow: /
