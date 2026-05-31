@@ -12,7 +12,8 @@ Each feature has:
 
 ## Backlog
 
-- [ ] **0. Responsive Design** — [SPEC_RESPONSIVE_DESIGN.md](SPEC_RESPONSIVE_DESIGN.md) Mobile-first (320–480px), tablet (481–1024px), desktop (1025px+). Touch-friendly, Lighthouse 85–95.
+- [~] **0. Responsive Design** — [SPEC_RESPONSIVE_DESIGN.md](SPEC_RESPONSIVE_DESIGN.md) Mobile-first. Phase 1-3 complete (70% — StringPlayer, PercussionGrid, PhotoStep, Modals ✅). Pending: PadGrid, landing page sections, library grid. Lighthouse audit next.
+- [~] **0.5. SEO Optimization** — [SPEC_SEO.md](SPEC_SEO.md) On-page + structured data + technical SEO ✅. Meta tags, JSON-LD, Open Graph, sitemap, robots.txt. Keyword targeting 10+ terms. Post-launch: Google Search Console, backlink outreach.
 - [x] **1. Test multi-provider router** — ✅ Verify fallthrough on rate limit. Add mock keys. Test all 5 providers.
 - [x] **2. Deploy to Vercel/CF Pages** — ✅ Deployed to Vercel. Production URL live.
 - [ ] **3. Add 10+ cultural instruments** — Balalaika, Oud, Taiko, Shamisen, Marimba, Bouzouki, Sarangi, Dizi, Pipa, Hurdy-Gurdy.

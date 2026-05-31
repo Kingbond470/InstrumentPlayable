@@ -341,6 +341,33 @@ See [SPEC_RESPONSIVE_DESIGN.md](SPEC_RESPONSIVE_DESIGN.md) for:
 - Acceptance tests (9 responsive scenarios)
 - Performance targets (Lighthouse 85–95 range)
 
+**Implementation status (70% complete):**
+- ✅ CSS foundation (variables, utilities, resets)
+- ✅ StringPlayer (1→2→3 column layout)
+- ✅ PercussionGrid (4×4 → 6×6 → 8×8 grid)
+- ✅ PhotoStep (stacked on mobile)
+- ✅ Modals (CreateCollection, ShareCollection)
+- ⏳ Pending: PadGrid, landing page sections, library grid
+
+### SEO Optimization
+
+**On-page, technical, and structured data optimization for search visibility.**
+
+See [SPEC_SEO.md](SPEC_SEO.md) for:
+- Keyword strategy (primary + long-tail)
+- Meta tags (titles, descriptions, OG, Twitter)
+- Structured data (JSON-LD schema, breadcrumbs, FAQs)
+- Technical SEO (sitemap, robots.txt, canonical tags)
+- Backlink strategy (music blogs, forums, communities)
+- 6-month ranking target (top 3 for 10 keywords)
+
+**Status: Complete (Phase 1-3)**
+- ✅ Meta tags (all routes)
+- ✅ Structured data (WebApplication, FAQ schema)
+- ✅ Open Graph / Twitter cards
+- ✅ sitemap.xml + robots.txt
+- ⏳ Next: Google Search Console setup, backlink outreach
+
 ### Shared components
 
 | Component | File | Purpose |
