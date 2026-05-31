@@ -17,7 +17,7 @@ Post-V1 features. Tracked by priority + effort. Check off as shipped.
 
 ## In Progress
 
-**Current:** #4 — Email magic-link auth
+**Current:** #4 — Email magic-link auth (foundation built, awaiting KV + email service)
 
 ---
 
