@@ -10,7 +10,7 @@ Point your camera at any instrument — real, painted, or sculpted. AI identifie
                       →  Record · Export WAV + MIDI · Share link
 ```
 
-**Origin:** Won first place at a Claude × Metropolitan Museum of Art hackathon, New York City.
+**Inspiration:** Built after discovering similar concepts in YouTube shorts about interactive music and art.
 
 Live at → `http://localhost:3000` (see [Getting Started](#getting-started))
 
@@ -32,13 +32,11 @@ Live at → `http://localhost:3000` (see [Getting Started](#getting-started))
 
 ## Origin Story
 
-This project was built at a hackathon hosted by Anthropic (Claude) and The Metropolitan Museum of Art in New York City. The challenge: make art more immersive for museum visitors in the Asian Art Department.
+The inspiration came from YouTube shorts exploring interactive music experiences and visual art engagement. The core idea: **let anyone photograph an instrument and play it instantly.**
 
-The idea: **let anyone photograph an instrument in a painting and play it.**
+Built with Claude Code. Zero prior coding experience. 
 
-Built with Claude Code. Zero prior coding experience. Won first place.
-
-The product now extends that original idea into a full browser application — any instrument, any culture, any era. Real instruments or painted ones. A tabla at the Met or a sitar at home.
+The product is a full browser application — any instrument, any culture, any era. Real instruments or painted ones. A tabla in a museum or a sitar at home. The focus is on making instruments accessible and playable for anyone, regardless of musical background.
 
 ---
 
@@ -94,13 +92,13 @@ Three segments:
 
 | Decision | Rationale |
 |---|---|
-| Photo-first, text-prompt secondary | Original winning hackathon idea; more differentiated |
+| Photo-first, text-prompt secondary | Core concept; more differentiated and intuitive |
 | Claude Sonnet for vision (not Haiku) | Identification accuracy > cost ($0.002/call) |
 | Confirm step ("Is this right?") | Delight moment + training data collection (Quick Draw pattern) |
 | 15 instruments, not 150 | Depth over breadth; each instrument has a tuned playable UI |
 | Share = instrument ID, not photo | Photo is ephemeral (your camera); instrument identity is shareable |
 | Cultural instruments prioritised | Tabla, sitar, erhu, koto, mbira — no competitor has built this |
-| The Met origin story on landing | Authenticity that can't be manufactured |
+| Instrument-first framing on landing | Museums + cultural heritage context validates the mission |
 
 ---
 
