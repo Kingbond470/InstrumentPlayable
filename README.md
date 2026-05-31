@@ -26,6 +26,7 @@ Local dev → `npm run dev` at `http://localhost:3000` (see [Getting Started](#g
 4. [Architecture](#architecture) ← TL
 5. [Instrument Library](#instrument-library)
 6. [Design System](#design-system) ← Designer
+   - [Responsive Design](SPEC_RESPONSIVE_DESIGN.md) — Mobile-first, touch-friendly
 7. [Design Directions](#design-directions) ← Designer
 8. [Roadmap](#roadmap)
 9. [File Structure](#file-structure)
@@ -327,6 +328,18 @@ The dark landing differentiates from every other music app. The switch to light 
 - Per-instrument accent overrides `T.red` only within that instrument's context
 - Monospace for all metadata, labels, and technical readouts
 - No utility CSS classes — inline styles throughout
+
+### Responsive Design
+
+**Mobile-first system supporting phones (320–480px), tablets (481–1024px), and desktops (1025px+).**
+
+See [SPEC_RESPONSIVE_DESIGN.md](SPEC_RESPONSIVE_DESIGN.md) for:
+- Breakpoint strategy
+- Layout adapters (StringPlayer, PercussionGrid, modals, navigation)
+- Touch targets (48px minimum on mobile)
+- Typography scaling (16px+ mobile baseline)
+- Acceptance tests (9 responsive scenarios)
+- Performance targets (Lighthouse 85–95 range)
 
 ### Shared components
 

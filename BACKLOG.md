@@ -12,8 +12,9 @@ Each feature has:
 
 ## Backlog
 
+- [ ] **0. Responsive Design** — [SPEC_RESPONSIVE_DESIGN.md](SPEC_RESPONSIVE_DESIGN.md) Mobile-first (320–480px), tablet (481–1024px), desktop (1025px+). Touch-friendly, Lighthouse 85–95.
 - [x] **1. Test multi-provider router** — ✅ Verify fallthrough on rate limit. Add mock keys. Test all 5 providers.
-- [ ] **2. Deploy to Vercel/CF Pages** — CI/CD pipeline. Production URL. Custom domain setup.
+- [x] **2. Deploy to Vercel/CF Pages** — ✅ Deployed to Vercel. Production URL live.
 - [ ] **3. Add 10+ cultural instruments** — Balalaika, Oud, Taiko, Shamisen, Marimba, Bouzouki, Sarangi, Dizi, Pipa, Hurdy-Gurdy.
 - [ ] **4. Email magic-link auth** — Cross-device kit/instrument sync. User library persisted to backend.
 - [ ] **5. Analytics dashboard** — Identification accuracy %, share K-factor, session funnel. Vercel Analytics or Posthog.
