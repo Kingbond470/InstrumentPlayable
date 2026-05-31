@@ -22,12 +22,23 @@ export async function generateMetadata(
 
   const title       = `${kit.name} — PAD/01`;
   const description = `"${kit.prompt}" — ${kit.bpm} BPM · ${kit.key} · ${kit.mood}`;
+  const ogImage     = `/api/og?instrument=unknown&name=${encodeURIComponent(kit.name)}`;
 
   return {
     title,
     description,
-    openGraph: { title, description, type: 'website' },
-    twitter:   { card: 'summary', title, description },
+    openGraph: {
+      title,
+      description,
+      type: 'website',
+      images: [{ url: ogImage }],
+    },
+    twitter: {
+      card: 'summary_large_image',
+      title,
+      description,
+      images: [ogImage],
+    },
   };
 }
 

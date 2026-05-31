@@ -17,7 +17,7 @@ Post-V1 features. Tracked by priority + effort. Check off as shipped.
 
 ## In Progress
 
-**Current:** #6 — OG image generation
+**Current:** #7 — MIDI input support
 
 ---
 
@@ -28,6 +28,7 @@ Post-V1 features. Tracked by priority + effort. Check off as shipped.
 - [x] **3. Add 10+ cultural instruments** — ✅ Balalaika, Oud, Taiko, Shamisen, Marimba, Bouzouki, Sarangi, Dizi, Pipa, Hurdy-Gurdy (25 total instruments now)
 - [x] **4. Email magic-link auth** — ✅ Foundation built (KV + email service TBD)
 - [x] **5. Analytics tracking** — ✅ Vercel Web Analytics + custom event hooks
+- [x] **6. OG image generation** — ✅ Social preview cards for Discord/Twitter/iMessage (Vercel OG)
 
 ---
 
