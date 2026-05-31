@@ -2,6 +2,14 @@
 
 Post-V1 features. Tracked by priority + effort. Check off as shipped.
 
+See [SPEC_KIT_GUIDE.md](SPEC_KIT_GUIDE.md) for how specs work.
+
+Each feature has:
+- Backlog item (here)
+- Detailed spec (SPEC_<feature>.md)
+- Acceptance tests
+- Performance targets
+
 ## Backlog
 
 - [x] **1. Test multi-provider router** — ✅ Verify fallthrough on rate limit. Add mock keys. Test all 5 providers.
@@ -19,14 +27,39 @@ Post-V1 features. Tracked by priority + effort. Check off as shipped.
 
 ## Shipped (V2 — Post-V1 Backlog)
 
-- [x] **1. Test multi-provider router** — ✅ Fallthrough on rate limit verified
-- [x] **2. Deploy to Vercel/CF Pages** — ✅ Deployment guide + vercel.json ready
-- [x] **3. Add 10+ cultural instruments** — ✅ Balalaika, Oud, Taiko, Shamisen, Marimba, Bouzouki, Sarangi, Dizi, Pipa, Hurdy-Gurdy (25 total instruments now)
-- [x] **4. Email magic-link auth** — ✅ Foundation built (KV + email service TBD)
-- [x] **5. Analytics tracking** — ✅ Vercel Web Analytics + custom event hooks
-- [x] **6. OG image generation** — ✅ Social preview cards for Discord/Twitter/iMessage (Vercel OG)
-- [x] **7. MIDI input support** — ✅ Web MIDI API (Chrome/Edge/Safari), note-to-voice mapping
-- [x] **8. Wind instrument UI** — ✅ Breath-style drag control (vertical = intensity, horizontal = note)
+| # | Feature | Spec | Status |
+|---|---------|------|--------|
+| 1 | Test multi-provider router | [SPEC_ROUTER_TESTING.md](SPEC_ROUTER_TESTING.md) | ✅ Shipped 2026-05-31 |
+| 2 | Deploy to Vercel/CF Pages | [SPEC_DEPLOY.md](SPEC_DEPLOY.md) | ✅ Shipped 2026-05-31 |
+| 3 | Add 10+ cultural instruments | [SPEC_INSTRUMENTS.md](SPEC_INSTRUMENTS.md) | ✅ Shipped 2026-05-31 |
+| 4 | Email magic-link auth | [SPEC_AUTH.md](SPEC_AUTH.md) | ✅ Shipped 2026-05-31 |
+| 5 | Analytics tracking | [SPEC_ANALYTICS.md](SPEC_ANALYTICS.md) | ✅ Shipped 2026-05-31 |
+| 6 | OG image generation | [SPEC_OG_IMAGES.md](SPEC_OG_IMAGES.md) | ✅ Shipped 2026-05-31 |
+| 7 | MIDI input support | [SPEC_MIDI.md](SPEC_MIDI.md) | ✅ Shipped 2026-05-31 |
+| 8 | Wind instrument UI | [SPEC_WIND_UI.md](SPEC_WIND_UI.md) | ✅ Shipped 2026-05-31 |
+
+---
+
+---
+
+## Planning (V3+)
+
+Next priorities (specs TBD):
+
+- [ ] **Multi-language support** — i18n (Spanish, Mandarin, Hindi, Arabic)
+- [ ] **Instrument history** — recently played, favorites
+- [ ] **Collection sharing** — save user's favorite 5 instruments, share as bundle
+- [ ] **Breath modulation** — wind instruments: envelope affected by intensity
+- [ ] **Vibrato/tremolo** — wind UI micro-movements → pitch/amplitude wobble
+- [ ] **MIDI file playback** — drag SMF → playback over instrument
+- [ ] **Keyboard visualization** — piano roll / note names overlay
+- [ ] **User library sync** — authenticated kits persist across devices
+
+To start V3:
+1. Create `SPEC_<feature>.md` for each (copy SPEC_TEMPLATE.md)
+2. Discuss with team (SPM/TL/Designer)
+3. Add to backlog with effort estimate
+4. Implement: spec → phases → PR → ship
 
 ---
 
