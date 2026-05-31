@@ -2,6 +2,7 @@
 
 import React from 'react';
 import { T } from '@/tokens/design';
+import { useViewport } from '@/hooks/useViewport';
 
 interface Props {
   onPhoto: (dataUrl: string) => void;
@@ -17,8 +18,11 @@ const EXAMPLES = [
 ];
 
 export default function PhotoStep({ onPhoto }: Props) {
+  const viewport = useViewport();
   const [dragging, setDragging] = React.useState(false);
   const inputRef = React.useRef<HTMLInputElement>(null);
+
+  const isMobile = viewport?.isMobile ?? true;
 
   const handleFile = (file: File) => {
     if (!file.type.startsWith('image/')) return;
@@ -37,15 +41,18 @@ export default function PhotoStep({ onPhoto }: Props) {
     <div style={{
       width: '100%', height: '100%', background: T.cream, color: T.ink,
       fontFamily: T.font,
-      display: 'grid', gridTemplateColumns: '1fr 1fr', alignItems: 'center',
+      display: 'grid',
+      gridTemplateColumns: isMobile ? '1fr' : '1fr 1fr',
+      alignItems: 'center',
+      gridTemplateRows: isMobile ? 'auto 1fr' : 'auto',
     }}>
       {/* Left — instructions */}
-      <div style={{ padding: '0 64px', display: 'flex', flexDirection: 'column', gap: 28 }}>
-        <span style={{ fontFamily: T.mono, fontSize: 11, letterSpacing: 1.6, color: T.red, fontWeight: 700 }}>
+      <div style={{ padding: isMobile ? '32px 20px' : '0 64px', display: 'flex', flexDirection: 'column', gap: isMobile ? 16 : 28 }}>
+        <span style={{ fontFamily: T.mono, fontSize: isMobile ? 9 : 11, letterSpacing: 1.6, color: T.red, fontWeight: 700 }}>
           01 · PHOTOGRAPH AN INSTRUMENT
         </span>
         <h1 style={{
-          margin: 0, fontWeight: 900, fontSize: 72, lineHeight: 0.88, letterSpacing: -3,
+          margin: 0, fontWeight: 900, fontSize: isMobile ? 32 : 72, lineHeight: 0.88, letterSpacing: -3,
         }}>
           Point your camera at any instrument.
         </h1>
@@ -76,12 +83,14 @@ export default function PhotoStep({ onPhoto }: Props) {
         </div>
       </div>
 
-      {/* Right — drop zone */}
+      {/* Right — drop zone (full width on mobile) */}
       <div style={{
-        height: '100%', borderLeft: `2px solid ${T.ink}`,
+        height: isMobile ? 'auto' : '100%',
+        borderLeft: isMobile ? 'none' : `2px solid ${T.ink}`,
+        borderTop: isMobile ? `2px solid ${T.ink}` : 'none',
         display: 'flex', flexDirection: 'column',
         alignItems: 'center', justifyContent: 'center',
-        padding: 48, gap: 20,
+        padding: isMobile ? 24 : 48, gap: isMobile ? 12 : 20,
         background: dragging ? `${T.ink}08` : T.cream,
         transition: 'background 150ms',
       }}
@@ -90,18 +99,18 @@ export default function PhotoStep({ onPhoto }: Props) {
         onDrop={onDrop}
       >
         <div style={{
-          width: '100%', maxWidth: 360, aspectRatio: '4/3',
+          width: '100%', maxWidth: isMobile ? 280 : 360, aspectRatio: '4/3',
           border: `2.5px dashed ${dragging ? T.red : T.ink}55`,
           display: 'flex', flexDirection: 'column',
-          alignItems: 'center', justifyContent: 'center', gap: 16,
+          alignItems: 'center', justifyContent: 'center', gap: isMobile ? 12 : 16,
           transition: 'border-color 150ms',
         }}>
-          <span style={{ fontSize: 48, lineHeight: 1 }}>📷</span>
+          <span style={{ fontSize: isMobile ? 32 : 48, lineHeight: 1 }}>📷</span>
           <span style={{
-            fontFamily: T.mono, fontSize: 11, letterSpacing: 1.4,
+            fontFamily: T.mono, fontSize: isMobile ? 9 : 11, letterSpacing: 1.4,
             opacity: 0.55, textAlign: 'center', lineHeight: 1.6,
           }}>
-            DRAG A PHOTO HERE<br />OR
+            {isMobile ? 'TAP TO SELECT' : 'DRAG A PHOTO HERE'}<br />{!isMobile && 'OR'}
           </span>
         </div>
 
@@ -114,13 +123,14 @@ export default function PhotoStep({ onPhoto }: Props) {
         <button
           onClick={() => inputRef.current?.click()}
           style={{
-            padding: '14px 28px', background: T.ink, color: T.cream,
-            border: `2px solid ${T.ink}`, fontWeight: 900, fontSize: 16,
+            padding: isMobile ? '12px 20px' : '14px 28px', background: T.ink, color: T.cream,
+            border: `2px solid ${T.ink}`, fontWeight: 900, fontSize: isMobile ? 12 : 16,
             letterSpacing: -0.3, cursor: 'pointer', borderRadius: 0,
-            boxShadow: `6px 6px 0 0 ${T.red}`,
+            boxShadow: `${isMobile ? 3 : 6}px ${isMobile ? 3 : 6}px 0 0 ${T.red}`,
+            width: isMobile ? '100%' : 'auto',
           }}
         >
-          CHOOSE PHOTO →
+          {isMobile ? 'CHOOSE PHOTO' : 'CHOOSE PHOTO →'}
         </button>
 
         {/* Camera on mobile */}
@@ -132,16 +142,17 @@ export default function PhotoStep({ onPhoto }: Props) {
             }
           }}
           style={{
-            padding: '10px 20px', background: 'transparent',
+            padding: isMobile ? '12px 16px' : '10px 20px', background: 'transparent',
             border: `1.5px solid ${T.ink}`, color: T.ink,
-            fontFamily: T.mono, fontSize: 10, letterSpacing: 1.4,
+            fontFamily: T.mono, fontSize: isMobile ? 9 : 10, letterSpacing: 1.4,
             fontWeight: 700, cursor: 'pointer', borderRadius: 0,
+            width: isMobile ? '100%' : 'auto',
           }}
         >
           📷 USE CAMERA
         </button>
 
-        <span style={{ fontFamily: T.mono, fontSize: 10, letterSpacing: 1.4, opacity: 0.4, textAlign: 'center' }}>
+        <span style={{ fontFamily: T.mono, fontSize: isMobile ? 8 : 10, letterSpacing: 1.4, opacity: 0.4, textAlign: 'center' }}>
           JPG · PNG · WEBP · MAX 10MB
         </span>
       </div>
