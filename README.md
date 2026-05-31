@@ -341,13 +341,15 @@ See [SPEC_RESPONSIVE_DESIGN.md](SPEC_RESPONSIVE_DESIGN.md) for:
 - Acceptance tests (9 responsive scenarios)
 - Performance targets (Lighthouse 85–95 range)
 
-**Implementation status (70% complete):**
+**Implementation status (100% complete):**
 - ✅ CSS foundation (variables, utilities, resets)
 - ✅ StringPlayer (1→2→3 column layout)
 - ✅ PercussionGrid (4×4 → 6×6 → 8×8 grid)
 - ✅ PhotoStep (stacked on mobile)
 - ✅ Modals (CreateCollection, ShareCollection)
-- ⏳ Pending: PadGrid, landing page sections, library grid
+- ✅ PadGrid (sidebar hidden on mobile, full-width grid)
+- ✅ Landing page (1→2 column hero, 1→3 column steps, fluid typography)
+- ✅ Library grid (1→2→3 column grid, simplified mobile nav)
 
 ### SEO Optimization
 
