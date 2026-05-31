@@ -4,7 +4,7 @@ Post-V1 features. Tracked by priority + effort. Check off as shipped.
 
 ## Backlog
 
-- [ ] **1. Test multi-provider router** — Verify fallthrough on rate limit. Add mock keys. Test all 5 providers.
+- [x] **1. Test multi-provider router** — ✅ Verify fallthrough on rate limit. Add mock keys. Test all 5 providers.
 - [ ] **2. Deploy to Vercel/CF Pages** — CI/CD pipeline. Production URL. Custom domain setup.
 - [ ] **3. Add 10+ cultural instruments** — Balalaika, Oud, Taiko, Shamisen, Marimba, Bouzouki, Sarangi, Dizi, Pipa, Hurdy-Gurdy.
 - [ ] **4. Email magic-link auth** — Cross-device kit/instrument sync. User library persisted to backend.
@@ -17,7 +17,7 @@ Post-V1 features. Tracked by priority + effort. Check off as shipped.
 
 ## In Progress
 
-**Current:** #1 — Test multi-provider router
+**Current:** #2 — Deploy to Vercel/CF Pages
 
 ---
 

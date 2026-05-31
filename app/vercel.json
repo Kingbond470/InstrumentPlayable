@@ -1,0 +1,37 @@
+{
+  "projectId": "",
+  "orgId": "",
+  "buildCommand": "npm run build",
+  "devCommand": "npm run dev",
+  "installCommand": "npm install",
+  "framework": "nextjs",
+  "outputDirectory": ".next",
+  "env": {
+    "ANTHROPIC_API_KEY": {
+      "description": "Anthropic API key for Claude (text + vision)",
+      "required": false
+    },
+    "OPENAI_API_KEY": {
+      "description": "OpenAI API key for fallthrough (text + vision)",
+      "required": false
+    },
+    "GEMINI_API_KEY": {
+      "description": "Google Gemini API key for fallthrough (text + vision)",
+      "required": false
+    },
+    "DEEPSEEK_API_KEY": {
+      "description": "DeepSeek API key for fallthrough (text only)",
+      "required": false
+    },
+    "XAI_API_KEY": {
+      "description": "xAI Grok API key for fallthrough (text + vision)",
+      "required": false
+    }
+  },
+  "regions": [
+    "iad1",
+    "sfo1",
+    "lhr1",
+    "ams1"
+  ]
+}
