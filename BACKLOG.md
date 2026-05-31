@@ -46,13 +46,13 @@ Each feature has:
 
 Target ship: 2026-07-15 (2 weeks)
 
-| # | Feature | Spec | Status | Effort |
-|---|---------|------|--------|--------|
-| 1 | Multi-language support | [SPEC_MULTI_LANGUAGE.md](SPEC_MULTI_LANGUAGE.md) | planning | L (5h) |
-| 2 | Instrument history & favorites | [SPEC_HISTORY.md](SPEC_HISTORY.md) | planning | M (3h) |
-| 3 | Collection sharing | [SPEC_COLLECTIONS.md](SPEC_COLLECTIONS.md) | planning | M (3h) |
+| # | Feature | Spec | Status | Effort | Shipped |
+|---|---------|------|--------|--------|---------|
+| 1 | Multi-language support | [SPEC_MULTI_LANGUAGE.md](SPEC_MULTI_LANGUAGE.md) | ✅ shipped | M (3h) | 2026-05-31 |
+| 2 | Instrument history & favorites | [SPEC_HISTORY.md](SPEC_HISTORY.md) | in-progress | M (3h) | TBD |
+| 3 | Collection sharing | [SPEC_COLLECTIONS.md](SPEC_COLLECTIONS.md) | planning | M (3h) | TBD |
 
-Total: 11h effort
+Completed: 1/3 (3h / 11h total)
 
 ---
 

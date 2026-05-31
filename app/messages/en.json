@@ -1,0 +1,188 @@
+{
+  "app": {
+    "title": "Playable Instrument",
+    "subtitle": "Take a photo. Play it instantly."
+  },
+  "pages": {
+    "home": {
+      "title": "Playable Instrument",
+      "description": "Photograph any instrument — real or painted. AI identifies it, you play it instantly.",
+      "cta": "Get Started"
+    },
+    "capture": {
+      "title": "Photograph an Instrument",
+      "subtitle": "Point your camera at any instrument — real or painted. AI identifies it, you play it instantly.",
+      "instruction": "Take a photo or upload an image"
+    },
+    "play": {
+      "title": "Play",
+      "subtitle": "Type a vibe. Hit a pad. That's it."
+    }
+  },
+  "buttons": {
+    "save": "Save Kit",
+    "share": "Share",
+    "export": "Export",
+    "exportWav": "Export WAV",
+    "exportMidi": "Export MIDI",
+    "record": "Record",
+    "stop": "Stop",
+    "play": "Play",
+    "pause": "Pause",
+    "next": "Next",
+    "prev": "Previous",
+    "cancel": "Cancel",
+    "confirm": "Confirm",
+    "delete": "Delete",
+    "clear": "Clear",
+    "upload": "Upload",
+    "identify": "Identify",
+    "login": "Login",
+    "logout": "Logout",
+    "createCollection": "Create Collection"
+  },
+  "labels": {
+    "kitName": "Kit Name",
+    "instrument": "Instrument",
+    "bpm": "BPM",
+    "key": "Key",
+    "mood": "Mood",
+    "prompt": "Describe a vibe",
+    "language": "Language",
+    "favorites": "Favorites",
+    "recent": "Recent",
+    "history": "History"
+  },
+  "instruments": {
+    "sitar": {
+      "name": "Sitar",
+      "description": "Indian stringed instrument with sympathetic strings and a resonant sound"
+    },
+    "tabla": {
+      "name": "Tabla",
+      "description": "Indian drums played with hands, typically in pairs"
+    },
+    "guitar": {
+      "name": "Guitar",
+      "description": "Six-stringed instrument played with fingers or pick"
+    },
+    "flute": {
+      "name": "Flute",
+      "description": "Woodwind instrument that produces sound through air flow"
+    },
+    "piano": {
+      "name": "Piano",
+      "description": "Keyboard instrument with 88 keys and strings struck by hammers"
+    },
+    "violin": {
+      "name": "Violin",
+      "description": "Stringed instrument played with a bow"
+    },
+    "djembe": {
+      "name": "Djembe",
+      "description": "West African drum played with hands"
+    },
+    "koto": {
+      "name": "Koto",
+      "description": "Japanese stringed instrument with 13 silk strings"
+    },
+    "harp": {
+      "name": "Harp",
+      "description": "Stringed instrument with many strings played by plucking"
+    },
+    "bansuri": {
+      "name": "Bansuri",
+      "description": "Indian bamboo flute traditionally played in pairs"
+    },
+    "erhu": {
+      "name": "Erhu",
+      "description": "Chinese two-stringed fiddle played upright with a bow"
+    },
+    "mbira": {
+      "name": "Mbira",
+      "description": "African percussion instrument with metal or wood tines"
+    },
+    "balalaika": {
+      "name": "Balalaika",
+      "description": "Russian stringed instrument with triangular body"
+    },
+    "oud": {
+      "name": "Oud",
+      "description": "Arabic fretless stringed instrument with pear-shaped body"
+    },
+    "taiko": {
+      "name": "Taiko",
+      "description": "Large Japanese drum played with wooden sticks"
+    },
+    "shamisen": {
+      "name": "Shamisen",
+      "description": "Japanese three-stringed lute with long neck"
+    },
+    "marimba": {
+      "name": "Marimba",
+      "description": "Wooden bar percussion instrument from Africa"
+    },
+    "bouzouki": {
+      "name": "Bouzouki",
+      "description": "Greek stringed instrument with paired strings"
+    },
+    "sarangi": {
+      "name": "Sarangi",
+      "description": "Indian bowed stringed instrument with resonant sound"
+    },
+    "dizi": {
+      "name": "Dizi",
+      "description": "Chinese bamboo transverse flute"
+    },
+    "pipa": {
+      "name": "Pipa",
+      "description": "Chinese pear-shaped lute with four strings"
+    },
+    "hurdyGurdy": {
+      "name": "Hurdy-Gurdy",
+      "description": "European string instrument played with a hand-crank"
+    },
+    "trumpet": {
+      "name": "Trumpet",
+      "description": "Brass instrument with three valves"
+    },
+    "kora": {
+      "name": "Kora",
+      "description": "West African harp-lute with 21 strings"
+    },
+    "saxophone": {
+      "name": "Saxophone",
+      "description": "Brass woodwind instrument with single reed"
+    }
+  },
+  "messages": {
+    "loading": "Loading...",
+    "identifying": "Identifying instrument...",
+    "saving": "Saving...",
+    "exporting": "Exporting...",
+    "success": "Success!",
+    "error": "Error",
+    "tryAgain": "Try Again",
+    "notFound": "Not found",
+    "invalidInput": "Invalid input",
+    "permissionDenied": "Permission denied",
+    "uploadFailed": "Upload failed",
+    "identificationFailed": "Could not identify instrument",
+    "noWebcam": "No webcam available"
+  },
+  "errors": {
+    "cameraNotFound": "Camera not found. Please check permissions.",
+    "uploadFailed": "Upload failed. Please try again.",
+    "identificationFailed": "Could not identify the instrument. Please try another photo.",
+    "invalidImage": "Invalid image format. Please use JPG or PNG.",
+    "imageTooLarge": "Image too large. Max 10MB.",
+    "networkError": "Network error. Please check your connection.",
+    "midiNotSupported": "MIDI not supported in this browser. Try Chrome/Edge/Safari."
+  },
+  "help": {
+    "uploadTip": "Works best with clear photos of the instrument",
+    "micTip": "Point camera at the instrument from the front",
+    "playTip": "Click pads to play. Drag to adjust volume.",
+    "exportTip": "Export your recording as WAV or MIDI"
+  }
+}

@@ -1,0 +1,188 @@
+{
+  "app": {
+    "title": "Instrumento Reproducible",
+    "subtitle": "Toma una foto. Tócalo al instante."
+  },
+  "pages": {
+    "home": {
+      "title": "Instrumento Reproducible",
+      "description": "Fotografía cualquier instrumento — real o pintado. La IA lo identifica, ¡tócalo al instante!",
+      "cta": "Comenzar"
+    },
+    "capture": {
+      "title": "Fotografía un Instrumento",
+      "subtitle": "Apunta tu cámara a cualquier instrumento — real o pintado. La IA lo identifica, ¡tócalo al instante!",
+      "instruction": "Toma una foto o sube una imagen"
+    },
+    "play": {
+      "title": "Tocar",
+      "subtitle": "Describe un ritmo. Toca un pad. Eso es todo."
+    }
+  },
+  "buttons": {
+    "save": "Guardar Kit",
+    "share": "Compartir",
+    "export": "Exportar",
+    "exportWav": "Exportar WAV",
+    "exportMidi": "Exportar MIDI",
+    "record": "Grabar",
+    "stop": "Detener",
+    "play": "Reproducir",
+    "pause": "Pausar",
+    "next": "Siguiente",
+    "prev": "Anterior",
+    "cancel": "Cancelar",
+    "confirm": "Confirmar",
+    "delete": "Eliminar",
+    "clear": "Limpiar",
+    "upload": "Subir",
+    "identify": "Identificar",
+    "login": "Iniciar sesión",
+    "logout": "Cerrar sesión",
+    "createCollection": "Crear Colección"
+  },
+  "labels": {
+    "kitName": "Nombre del Kit",
+    "instrument": "Instrumento",
+    "bpm": "BPM",
+    "key": "Tonalidad",
+    "mood": "Ambiente",
+    "prompt": "Describe un ritmo",
+    "language": "Idioma",
+    "favorites": "Favoritos",
+    "recent": "Reciente",
+    "history": "Historial"
+  },
+  "instruments": {
+    "sitar": {
+      "name": "Sitar",
+      "description": "Instrumento de cuerda indio con cuerdas simpáticas y sonido resonante"
+    },
+    "tabla": {
+      "name": "Tabla",
+      "description": "Tambores indios tocados con las manos, típicamente en parejas"
+    },
+    "guitar": {
+      "name": "Guitarra",
+      "description": "Instrumento de seis cuerdas tocado con dedos o púa"
+    },
+    "flute": {
+      "name": "Flauta",
+      "description": "Instrumento de viento que produce sonido a través del flujo de aire"
+    },
+    "piano": {
+      "name": "Piano",
+      "description": "Instrumento de teclado con 88 teclas y cuerdas golpeadas por martillos"
+    },
+    "violin": {
+      "name": "Violín",
+      "description": "Instrumento de cuerda tocado con un arco"
+    },
+    "djembe": {
+      "name": "Djembe",
+      "description": "Tambor oeste africano tocado con las manos"
+    },
+    "koto": {
+      "name": "Koto",
+      "description": "Instrumento de cuerda japonés con 13 cuerdas de seda"
+    },
+    "harp": {
+      "name": "Arpa",
+      "description": "Instrumento de cuerda con muchas cuerdas tocadas por pulsación"
+    },
+    "bansuri": {
+      "name": "Bansuri",
+      "description": "Flauta de bambú india tocada tradicionalmente en parejas"
+    },
+    "erhu": {
+      "name": "Erhu",
+      "description": "Violín chino de dos cuerdas tocado verticalmente con arco"
+    },
+    "mbira": {
+      "name": "Mbira",
+      "description": "Instrumento de percusión africano con lengüetas de metal o madera"
+    },
+    "balalaika": {
+      "name": "Balalaika",
+      "description": "Instrumento de cuerda ruso con cuerpo triangular"
+    },
+    "oud": {
+      "name": "Oud",
+      "description": "Instrumento de cuerda árabe sin trastes con cuerpo en forma de pera"
+    },
+    "taiko": {
+      "name": "Taiko",
+      "description": "Gran tambor japonés tocado con palos de madera"
+    },
+    "shamisen": {
+      "name": "Shamisen",
+      "description": "Laúd de tres cuerdas japonés con cuello largo"
+    },
+    "marimba": {
+      "name": "Marimba",
+      "description": "Instrumento de percusión de barras de madera de África"
+    },
+    "bouzouki": {
+      "name": "Bouzouki",
+      "description": "Instrumento de cuerda griego con cuerdas emparejadas"
+    },
+    "sarangi": {
+      "name": "Sarangi",
+      "description": "Instrumento de cuerda indio tocado con arco con sonido resonante"
+    },
+    "dizi": {
+      "name": "Dizi",
+      "description": "Flauta transversal de bambú china"
+    },
+    "pipa": {
+      "name": "Pipa",
+      "description": "Laúd chino en forma de pera con cuatro cuerdas"
+    },
+    "hurdyGurdy": {
+      "name": "Hurdy-Gurdy",
+      "description": "Instrumento de cuerda europeo tocado con una manivela"
+    },
+    "trumpet": {
+      "name": "Trompeta",
+      "description": "Instrumento de viento de metal con tres válvulas"
+    },
+    "kora": {
+      "name": "Kora",
+      "description": "Arpa-laúd oeste africana con 21 cuerdas"
+    },
+    "saxophone": {
+      "name": "Saxofón",
+      "description": "Instrumento de viento de metal con lengüeta simple"
+    }
+  },
+  "messages": {
+    "loading": "Cargando...",
+    "identifying": "Identificando instrumento...",
+    "saving": "Guardando...",
+    "exporting": "Exportando...",
+    "success": "¡Éxito!",
+    "error": "Error",
+    "tryAgain": "Intentar de nuevo",
+    "notFound": "No encontrado",
+    "invalidInput": "Entrada inválida",
+    "permissionDenied": "Permiso denegado",
+    "uploadFailed": "La carga falló",
+    "identificationFailed": "No se pudo identificar el instrumento",
+    "noWebcam": "Cámara web no disponible"
+  },
+  "errors": {
+    "cameraNotFound": "Cámara no encontrada. Por favor, verifica los permisos.",
+    "uploadFailed": "La carga falló. Por favor, intenta de nuevo.",
+    "identificationFailed": "No se pudo identificar el instrumento. Por favor, intenta con otra foto.",
+    "invalidImage": "Formato de imagen inválido. Por favor, usa JPG o PNG.",
+    "imageTooLarge": "Imagen demasiado grande. Máximo 10MB.",
+    "networkError": "Error de red. Por favor, verifica tu conexión.",
+    "midiNotSupported": "MIDI no soportado en este navegador. Intenta Chrome/Edge/Safari."
+  },
+  "help": {
+    "uploadTip": "Funciona mejor con fotos claras del instrumento",
+    "micTip": "Apunta la cámara al instrumento desde el frente",
+    "playTip": "Haz clic en los pads para tocar. Arrastra para ajustar el volumen.",
+    "exportTip": "Exporta tu grabación como WAV o MIDI"
+  }
+}

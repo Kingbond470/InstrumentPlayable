@@ -1,0 +1,188 @@
+{
+  "app": {
+    "title": "可演奏乐器",
+    "subtitle": "拍照。即刻演奏。"
+  },
+  "pages": {
+    "home": {
+      "title": "可演奏乐器",
+      "description": "拍摄任何乐器——真实或绘制的。人工智能识别它，你立即演奏。",
+      "cta": "开始"
+    },
+    "capture": {
+      "title": "拍摄乐器",
+      "subtitle": "将相机对准任何乐器——真实或绘制的。人工智能识别它，你立即演奏。",
+      "instruction": "拍照或上传图像"
+    },
+    "play": {
+      "title": "演奏",
+      "subtitle": "描述一个氛围。敲击垫子。就这样。"
+    }
+  },
+  "buttons": {
+    "save": "保存套件",
+    "share": "分享",
+    "export": "导出",
+    "exportWav": "导出 WAV",
+    "exportMidi": "导出 MIDI",
+    "record": "录制",
+    "stop": "停止",
+    "play": "播放",
+    "pause": "暂停",
+    "next": "下一个",
+    "prev": "上一个",
+    "cancel": "取消",
+    "confirm": "确认",
+    "delete": "删除",
+    "clear": "清除",
+    "upload": "上传",
+    "identify": "识别",
+    "login": "登录",
+    "logout": "登出",
+    "createCollection": "创建合集"
+  },
+  "labels": {
+    "kitName": "套件名称",
+    "instrument": "乐器",
+    "bpm": "BPM",
+    "key": "调性",
+    "mood": "氛围",
+    "prompt": "描述一个氛围",
+    "language": "语言",
+    "favorites": "收藏",
+    "recent": "最近",
+    "history": "历史"
+  },
+  "instruments": {
+    "sitar": {
+      "name": "西塔琴",
+      "description": "印度弦乐器，配有共鸣弦和共鸣音色"
+    },
+    "tabla": {
+      "name": "塔不拉鼓",
+      "description": "印度手鼓，通常成对使用"
+    },
+    "guitar": {
+      "name": "吉他",
+      "description": "六弦乐器，用手指或拨片演奏"
+    },
+    "flute": {
+      "name": "长笛",
+      "description": "木管乐器，通过气流产生声音"
+    },
+    "piano": {
+      "name": "钢琴",
+      "description": "88 键键盘乐器，弦由锤子击中"
+    },
+    "violin": {
+      "name": "小提琴",
+      "description": "用弓演奏的弦乐器"
+    },
+    "djembe": {
+      "name": "姜鼓",
+      "description": "西非手鼓"
+    },
+    "koto": {
+      "name": "古琴",
+      "description": "日本弦乐器，有 13 根丝弦"
+    },
+    "harp": {
+      "name": "竖琴",
+      "description": "有许多弦的弦乐器，通过拨弦演奏"
+    },
+    "bansuri": {
+      "name": "班苏里笛",
+      "description": "印度竹笛，传统上成对演奏"
+    },
+    "erhu": {
+      "name": "二胡",
+      "description": "中国两弦拉弦乐器"
+    },
+    "mbira": {
+      "name": "姆比拉",
+      "description": "非洲打击乐器，有金属或木制的舌片"
+    },
+    "balalaika": {
+      "name": "俄罗斯三角琴",
+      "description": "俄罗斯弦乐器，有三角形琴体"
+    },
+    "oud": {
+      "name": "乌德琴",
+      "description": "阿拉伯无品弦乐器，梨形琴体"
+    },
+    "taiko": {
+      "name": "太鼓",
+      "description": "大型日本鼓，用木棒演奏"
+    },
+    "shamisen": {
+      "name": "三味线",
+      "description": "日本三弦长颈琵琶"
+    },
+    "marimba": {
+      "name": "木琴",
+      "description": "来自非洲的木条打击乐器"
+    },
+    "bouzouki": {
+      "name": "布祖基琴",
+      "description": "希腊弦乐器，有成对的弦"
+    },
+    "sarangi": {
+      "name": "萨朗吉琴",
+      "description": "印度拉弦乐器，音色共鸣"
+    },
+    "dizi": {
+      "name": "笛子",
+      "description": "中国竹制横笛"
+    },
+    "pipa": {
+      "name": "琵琶",
+      "description": "中国梨形琵琶，四弦"
+    },
+    "hurdyGurdy": {
+      "name": "转轮琴",
+      "description": "欧洲弦乐器，由手摇转轮驱动"
+    },
+    "trumpet": {
+      "name": "小号",
+      "description": "铜管乐器，有三个活塞"
+    },
+    "kora": {
+      "name": "柯拉琴",
+      "description": "西非竖琴-琵琶，21 根弦"
+    },
+    "saxophone": {
+      "name": "萨克斯风",
+      "description": "铜管木管乐器，单簧片"
+    }
+  },
+  "messages": {
+    "loading": "加载中...",
+    "identifying": "识别乐器中...",
+    "saving": "保存中...",
+    "exporting": "导出中...",
+    "success": "成功！",
+    "error": "错误",
+    "tryAgain": "重试",
+    "notFound": "未找到",
+    "invalidInput": "无效输入",
+    "permissionDenied": "权限被拒绝",
+    "uploadFailed": "上传失败",
+    "identificationFailed": "无法识别乐器",
+    "noWebcam": "摄像头不可用"
+  },
+  "errors": {
+    "cameraNotFound": "未找到摄像头。请检查权限。",
+    "uploadFailed": "上传失败。请重试。",
+    "identificationFailed": "无法识别乐器。请尝试另一张照片。",
+    "invalidImage": "无效的图像格式。请使用 JPG 或 PNG。",
+    "imageTooLarge": "图像过大。最大 10MB。",
+    "networkError": "网络错误。请检查你的连接。",
+    "midiNotSupported": "此浏览器不支持 MIDI。尝试 Chrome/Edge/Safari。"
+  },
+  "help": {
+    "uploadTip": "使用清晰的乐器照片效果最佳",
+    "micTip": "从正面对准乐器",
+    "playTip": "单击垫子演奏。拖动调整音量。",
+    "exportTip": "将录音导出为 WAV 或 MIDI"
+  }
+}

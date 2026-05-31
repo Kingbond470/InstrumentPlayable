@@ -11,6 +11,7 @@
     "@anthropic-ai/sdk": "^0.52.0",
     "@vercel/og": "^0.6.2",
     "next": "^15.1.7",
+    "next-intl": "^4.13.0",
     "react": "^19.0.0",
     "react-dom": "^19.0.0",
     "tone": "14.7.77"
