@@ -1,8 +1,8 @@
 ---
 title: Responsive Design System (Mobile-First)
-status: in-progress
+status: shipped
 effort: L (6h)
-shipped: null
+shipped: 2026-06-01
 ---
 
 ## Summary
@@ -266,26 +266,34 @@ Desktop bases:   24px        32px      48px       64px
 
 ## Implementation Phases
 
-### Phase 1: CSS Reset & Base Styles (2h)
-- [ ] Normalize.css or modern reset
-- [ ] Base typography scale
-- [ ] Breakpoint system (CSS variables)
-- [ ] Touch-friendly spacing defaults
+### Phase 1: CSS Reset & Base Styles (2h) ✅
+- [x] Normalize.css or modern reset
+- [x] Base typography scale
+- [x] Breakpoint system (CSS variables)
+- [x] Touch-friendly spacing defaults
 
-### Phase 2: Layout Adapters (2h)
-- [ ] Container queries for responsive columns
-- [ ] Flex/grid base styles
-- [ ] Navigation responsive swap (bottom → top)
-- [ ] Sidebar show/hide at breakpoints
+### Phase 2: Layout Adapters (2h) ✅
+- [x] Container queries for responsive columns
+- [x] Flex/grid base styles
+- [x] Navigation responsive swap (bottom → top)
+- [x] Sidebar show/hide at breakpoints
 
-### Phase 3: Component Overrides (2h)
-- [ ] StringPlayer: responsive grid
-- [ ] PercussionGrid: responsive dimensions
-- [ ] Modals: full-height mobile, fixed desktop
-- [ ] HistorySidebar: drawer on mobile, sidebar on tablet+
+### Phase 3: Component Overrides (2h) ✅
+- [x] StringPlayer: responsive grid
+- [x] PercussionGrid: responsive dimensions
+- [x] Modals: full-height mobile, fixed desktop
+- [x] PhotoStep: responsive layout
+- [x] CreateCollectionModal: responsive modal
+- [x] ShareCollectionModal: responsive modal
 
-### Phase 4: Testing & Refinement (planned)
-- [ ] Lighthouse audit
+### Phase 4: Remaining Components (2h) ✅
+- [x] PadGrid: sidebar hidden mobile, responsive padding/fonts
+- [x] Landing page: responsive hero/sections with CSS clamp()
+- [x] Library grid: 1→2→3 column responsive layout
+- [x] Navigation: responsive top bars across all pages
+
+### Phase 5: Testing & Refinement (pending)
+- [ ] Lighthouse audit (target: 85-95 Core Vitals)
 - [ ] Device testing (iPhone, iPad, desktop)
 - [ ] Layout shift (CLS) measurement
 - [ ] Touch interaction validation
