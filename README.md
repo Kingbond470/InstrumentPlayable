@@ -12,7 +12,9 @@ Point your camera at any instrument — real, painted, or sculpted. AI identifie
 
 **Inspiration:** Built after discovering similar concepts in YouTube shorts about interactive music and art.
 
-Live at → `http://localhost:3000` (see [Getting Started](#getting-started))
+Live at → https://instrument-playable-nearawayofficial-3874s-projects.vercel.app
+
+Local dev → `npm run dev` at `http://localhost:3000` (see [Getting Started](#getting-started))
 
 ---
 
