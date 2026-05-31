@@ -4,6 +4,7 @@ import React from 'react';
 import { T } from '@/tokens/design';
 import type { InstrumentDef } from '@/types/instrument';
 import { getInstrumentEngine } from '@/audio/InstrumentEngine';
+import { useViewport } from '@/hooks/useViewport';
 import { now } from 'tone';
 import type { HitEvent } from '@/audio/MidiExport';
 
@@ -15,6 +16,7 @@ interface Props {
 }
 
 export default function StringPlayer({ instrument, photo, hitLog, onHit }: Props) {
+  const viewport = useViewport();
   const [active, setActive] = React.useState<Set<number>>(new Set());
   const timeouts = React.useRef<Set<ReturnType<typeof setTimeout>>>(new Set());
 
@@ -37,55 +39,67 @@ export default function StringPlayer({ instrument, photo, hitLog, onHit }: Props
 
   const strings = instrument.voices;
   const isVertical = ['sitar', 'violin', 'guitar', 'erhu'].includes(instrument.id);
+  const isMobile = viewport?.isMobile ?? true;
+  const isTablet = viewport?.isTablet ?? false;
+
+  // Responsive grid layout
+  const gridLayout = isMobile
+    ? { columns: '1fr', rows: '56px 1fr 48px' }
+    : isTablet
+    ? { columns: '180px 1fr', rows: '56px 1fr 48px' }
+    : { columns: '260px 1fr 220px', rows: '64px 1fr 56px' };
 
   return (
     <div style={{
       width: '100%', height: '100%', background: T.cream, color: T.ink,
       fontFamily: T.font,
       display: 'grid',
-      gridTemplateColumns: isVertical ? '260px 1fr 220px' : '260px 1fr 220px',
-      gridTemplateRows: '64px 1fr 56px',
+      gridTemplateColumns: gridLayout.columns,
+      gridTemplateRows: gridLayout.rows,
     }}>
       {/* Top bar */}
       <div style={{
         gridColumn: '1 / -1',
         borderBottom: `2px solid ${T.ink}`,
-        padding: '0 24px',
+        padding: isMobile ? '0 12px' : '0 24px',
         display: 'flex', alignItems: 'center', justifyContent: 'space-between',
+        gap: 8,
+        overflow: 'hidden',
       }}>
-        <div style={{ display: 'flex', alignItems: 'center', gap: 16 }}>
-          <img src={photo} alt="" style={{ width: 40, height: 40, objectFit: 'cover', border: `2px solid ${instrument.accent}` }} />
-          <div>
-            <div style={{ fontWeight: 900, fontSize: 20, letterSpacing: -0.5 }}>{instrument.name}</div>
-            <div style={{ fontFamily: T.mono, fontSize: 10, letterSpacing: 1.4, color: instrument.accent, opacity: 0.9 }}>
+        <div style={{ display: 'flex', alignItems: 'center', gap: isMobile ? 8 : 16, minWidth: 0 }}>
+          <img src={photo} alt="" style={{ width: isMobile ? 32 : 40, height: isMobile ? 32 : 40, objectFit: 'cover', border: `2px solid ${instrument.accent}`, flexShrink: 0 }} />
+          <div style={{ minWidth: 0 }}>
+            <div style={{ fontWeight: 900, fontSize: isMobile ? 14 : 20, letterSpacing: -0.5, whiteSpace: 'nowrap', overflow: 'hidden', textOverflow: 'ellipsis' }}>{instrument.name}</div>
+            {!isMobile && <div style={{ fontFamily: T.mono, fontSize: 10, letterSpacing: 1.4, color: instrument.accent, opacity: 0.9 }}>
               {instrument.culture.toUpperCase()} · {instrument.family.toUpperCase()}
-            </div>
+            </div>}
           </div>
         </div>
-        <div style={{ fontFamily: T.mono, fontSize: 10, letterSpacing: 1.4, opacity: 0.55 }}>
+        {!isMobile && <div style={{ fontFamily: T.mono, fontSize: 10, letterSpacing: 1.4, opacity: 0.55, flexShrink: 0 }}>
           {instrument.voices.length} STRINGS · TAP TO PLUCK
-        </div>
+        </div>}
       </div>
 
-      {/* Left rail — info */}
-      <div style={{
+      {/* Left rail — info (hidden on mobile) */}
+      {!isMobile && <div style={{
         borderRight: `2px solid ${T.ink}`,
-        padding: '28px 24px',
-        display: 'flex', flexDirection: 'column', gap: 20,
+        padding: isTablet ? '16px 12px' : '28px 24px',
+        display: 'flex', flexDirection: 'column', gap: isTablet ? 12 : 20,
+        overflow: 'hidden',
       }}>
         <div>
-          <div style={{ fontWeight: 900, fontSize: 36, letterSpacing: -1, lineHeight: 1 }}>{instrument.name}</div>
+          <div style={{ fontWeight: 900, fontSize: isTablet ? 24 : 36, letterSpacing: -1, lineHeight: 1 }}>{instrument.name}</div>
           <div style={{ fontFamily: T.mono, fontSize: 10, letterSpacing: 1.2, marginTop: 4, color: instrument.accent }}>
             {instrument.culture}
           </div>
         </div>
-        <p style={{
+        {!isTablet && <p style={{
           margin: 0, fontSize: 14, lineHeight: 1.5, opacity: 0.7,
           borderTop: `1.5px solid ${T.ink}22`, paddingTop: 16,
         }}>
           {instrument.description}
-        </p>
-        <div style={{
+        </p>}
+        {!isTablet && <div style={{
           marginTop: 'auto', padding: 12,
           background: `${instrument.accent}15`,
           border: `1.5px solid ${instrument.accent}44`,
@@ -93,14 +107,15 @@ export default function StringPlayer({ instrument, photo, hitLog, onHit }: Props
           color: instrument.accent, lineHeight: 1.6,
         }}>
           TAP ANY STRING<br />TO PLUCK IT
-        </div>
-      </div>
+        </div>}
+      </div>}
 
       {/* Centre — strings */}
       <div style={{
         position: 'relative', overflow: 'hidden',
         display: 'flex', alignItems: 'center', justifyContent: 'center',
-        padding: isVertical ? '40px 0' : '0 40px',
+        padding: isVertical ? (isMobile ? '16px 0' : '40px 0') : (isMobile ? '0 12px' : '0 40px'),
+        gridColumn: isMobile ? '1 / -1' : 'auto',
       }}>
         {/* Background — faint instrument shape suggestion */}
         <div style={{
@@ -112,15 +127,15 @@ export default function StringPlayer({ instrument, photo, hitLog, onHit }: Props
         {isVertical ? (
           // Vertical strings (sitar, guitar, violin, erhu)
           <div style={{
-            display: 'flex', gap: 12, height: '80%', alignItems: 'stretch',
+            display: 'flex', gap: isMobile ? 8 : 12, height: '80%', alignItems: 'stretch',
           }}>
-            {strings.map((s, i) => {
+            {strings.slice(0, isMobile ? 6 : strings.length).map((s, i) => {
               const on = active.has(i);
               return (
                 <div key={i}
                   onPointerDown={() => pluck(i)}
                   style={{
-                    width: 28, cursor: 'pointer', position: 'relative',
+                    width: isMobile ? 20 : 28, cursor: 'pointer', position: 'relative',
                     display: 'flex', flexDirection: 'column', alignItems: 'center',
                   }}
                 >
@@ -197,8 +212,8 @@ export default function StringPlayer({ instrument, photo, hitLog, onHit }: Props
         )}
       </div>
 
-      {/* Right rail — tuning */}
-      <div style={{
+      {/* Right rail — tuning (hidden on mobile/tablet) */}
+      {!isMobile && !isTablet && <div style={{
         borderLeft: `2px solid ${T.ink}`,
         padding: '28px 20px',
         display: 'flex', flexDirection: 'column', gap: 8,
@@ -217,18 +232,21 @@ export default function StringPlayer({ instrument, photo, hitLog, onHit }: Props
             <span style={{ fontFamily: T.mono, fontSize: 10, opacity: 0.5 }}>{s.note}</span>
           </div>
         ))}
-      </div>
+      </div>}
 
       {/* Bottom bar */}
       <div style={{
         gridColumn: '1 / -1',
         borderTop: `2px solid ${T.ink}`,
         display: 'flex', alignItems: 'center',
-        padding: '0 24px', gap: 12,
-        fontFamily: T.mono, fontSize: 10, letterSpacing: 1.4, opacity: 0.55,
+        padding: isMobile ? '0 12px' : '0 24px', gap: 12,
+        fontFamily: T.mono, fontSize: isMobile ? 9 : 10, letterSpacing: 1.4, opacity: 0.55,
+        overflow: 'hidden',
       }}>
         <span style={{ width: 8, height: 8, borderRadius: '50%', background: instrument.accent, flexShrink: 0 }} />
-        <span>{instrument.name.toUpperCase()} · {strings.length} STRINGS · {instrument.culture.toUpperCase()}</span>
+        <span style={{ whiteSpace: 'nowrap', overflow: 'hidden', textOverflow: 'ellipsis' }}>
+          {isMobile ? `${strings.length} STRINGS` : `${instrument.name.toUpperCase()} · ${strings.length} STRINGS · ${instrument.culture.toUpperCase()}`}
+        </span>
       </div>
 
       <style>{`
