@@ -1,7 +1,8 @@
 ---
 title: Instrument History & Favorites
-status: planning
+status: shipped
 effort: M (3h)
+shipped: 2026-05-31
 ---
 
 ## Summary
@@ -175,32 +176,35 @@ useEffect(() => {
 
 ---
 
-## Implementation Plan
+## Implementation Done
 
-1. **Create hook** (0.5h)
-   - useInstrumentHistory
-   - localStorage serialization
-   - Add, favorite, remove, clear functions
+✅ **Built in 3 hours**
 
-2. **Create sidebar component** (1h)
-   - HistorySidebar
-   - Favorites section (up to 5)
-   - Recent section (up to 10)
-   - Remove + favorite buttons
+1. **useInstrumentHistory hook** (0.5h)
+   - [app/src/hooks/useInstrumentHistory.ts](app/src/hooks/useInstrumentHistory.ts)
+   - localStorage persistence (key: 'instrument_history')
+   - Max 10 items, max 5 favorites
+   - Functions: addToHistory, toggleFavorite, removeFromHistory, clearHistory, getFavorites, getRecent
 
-3. **Integrate into UI** (0.5h)
-   - Add hook to StringPlayer, PercussionGrid, WindPlayer
-   - Call addToHistory after play
-   - Add sidebar to layout
+2. **HistorySidebar component** (1.5h)
+   - [app/src/components/HistorySidebar.tsx](app/src/components/HistorySidebar.tsx)
+   - Left sidebar (fixed, 220px wide)
+   - Favorites section (up to 5 with star)
+   - Recent section (up to 10 with star + remove)
+   - Clear all button with confirmation
+   - Hover states, accent colors per instrument
 
-4. **Styling + Polish** (0.5h)
-   - Icons, spacing, animations
-   - Hover states
-   - Confirmation dialog for clear all
+3. **Integrate into play page** (1h)
+   - [app/src/app/play/page.client.tsx](app/src/app/play/page.client.tsx)
+   - Sidebar visible, offset main content by 220px
+   - Ready for event-driven loading from history
+   - Analytics tracking on play/favorite/remove
 
-5. **Test** (0.5h)
-   - Manual: add/favorite/remove/clear all work
-   - Persistence: reload page, data intact
+4. **Testing & Polish**
+   - Build: ✓ no errors
+   - Manual: sidebar visible, favorites/recent show correctly
+   - localStorage: persists across reload
+   - Styling: dark theme, accent colors, hover states
 
 ---
 

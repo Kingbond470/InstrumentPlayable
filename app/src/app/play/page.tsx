@@ -1,8 +1,6 @@
 import { Suspense } from 'react';
 import type { Metadata } from 'next';
-import OnboardingFlow from '@/components/onboarding/OnboardingFlow';
-import MobileGuard    from '@/components/MobileGuard';
-import LanguageSelector from '@/components/LanguageSelector';
+import PlayPageClient from './page.client';
 import { decodeKit }  from '@/lib/shareUrl';
 
 // P1 fix: dynamic OG meta tags so shared kit URLs render rich previews in
@@ -45,15 +43,8 @@ export async function generateMetadata(
 
 export default function PlayPage() {
   return (
-    <MobileGuard>
-      <div style={{ width: '100vw', height: '100vh', overflow: 'hidden', position: 'relative' }}>
-        <Suspense fallback={null}>
-          <OnboardingFlow />
-        </Suspense>
-        <div style={{ position: 'absolute', top: '12px', right: '12px', zIndex: 1000 }}>
-          <LanguageSelector />
-        </div>
-      </div>
-    </MobileGuard>
+    <Suspense fallback={null}>
+      <PlayPageClient />
+    </Suspense>
   );
 }
