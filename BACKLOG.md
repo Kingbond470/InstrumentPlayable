@@ -15,13 +15,9 @@ Post-V1 features. Tracked by priority + effort. Check off as shipped.
 
 ---
 
-## In Progress
-
-**Current:** #8 — Wind instrument UI
-
 ---
 
-## Shipped (V2)
+## Shipped (V2 — Post-V1 Backlog)
 
 - [x] **1. Test multi-provider router** — ✅ Fallthrough on rate limit verified
 - [x] **2. Deploy to Vercel/CF Pages** — ✅ Deployment guide + vercel.json ready
@@ -30,6 +26,7 @@ Post-V1 features. Tracked by priority + effort. Check off as shipped.
 - [x] **5. Analytics tracking** — ✅ Vercel Web Analytics + custom event hooks
 - [x] **6. OG image generation** — ✅ Social preview cards for Discord/Twitter/iMessage (Vercel OG)
 - [x] **7. MIDI input support** — ✅ Web MIDI API (Chrome/Edge/Safari), note-to-voice mapping
+- [x] **8. Wind instrument UI** — ✅ Breath-style drag control (vertical = intensity, horizontal = note)
 
 ---
 
