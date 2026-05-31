@@ -17,7 +17,7 @@ Post-V1 features. Tracked by priority + effort. Check off as shipped.
 
 ## In Progress
 
-**Current:** #7 — MIDI input support
+**Current:** #8 — Wind instrument UI
 
 ---
 
@@ -29,6 +29,7 @@ Post-V1 features. Tracked by priority + effort. Check off as shipped.
 - [x] **4. Email magic-link auth** — ✅ Foundation built (KV + email service TBD)
 - [x] **5. Analytics tracking** — ✅ Vercel Web Analytics + custom event hooks
 - [x] **6. OG image generation** — ✅ Social preview cards for Discord/Twitter/iMessage (Vercel OG)
+- [x] **7. MIDI input support** — ✅ Web MIDI API (Chrome/Edge/Safari), note-to-voice mapping
 
 ---
 

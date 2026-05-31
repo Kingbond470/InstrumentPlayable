@@ -8,7 +8,7 @@ import type { InstrumentDef } from '@/types/instrument';
 
 type SynthInstance = ToneAudioNode & { triggerAttack?: (note: string, time?: number) => void };
 
-class InstrumentEngine {
+export class InstrumentEngine {
   private started   = false;
   private voices: SynthInstance[] = [];
   private reverb!: Reverb;
