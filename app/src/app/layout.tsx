@@ -1,5 +1,6 @@
 import type { Metadata } from 'next';
 import './globals.css';
+import { Analytics } from '@vercel/analytics/react';
 import { LanguageProvider } from '@/contexts/LanguageContext';
 import AnalyticsProvider from '@/components/AnalyticsProvider';
 import { BASE_URL, generateWebAppSchema } from '@/lib/seo';
@@ -109,6 +110,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
             {children}
           </LanguageProvider>
         </AnalyticsProvider>
+        <Analytics />
       </body>
     </html>
   );
