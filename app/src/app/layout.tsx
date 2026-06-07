@@ -97,6 +97,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
         {/* Preconnect to external resources */}
         <link rel="preconnect" href="https://fonts.googleapis.com" />
         <link rel="preconnect" href="https://fonts.gstatic.com" crossOrigin="anonymous" />
+        <link rel="preconnect" href="https://api.anthropic.com" />
 
         {/* Manifest for PWA */}
         <link rel="manifest" href="/manifest.json" />
