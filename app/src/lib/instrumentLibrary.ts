@@ -428,6 +428,177 @@ export const INSTRUMENTS: Record<string, InstrumentDef> = {
     ],
   },
 
+  // ── Additional World Instruments ──────────────────────────────────────
+  bagpipe: {
+    id: 'bagpipe', name: 'Bagpipes', family: 'wind', culture: 'Scottish / Irish',
+    aliases: ['bagpipes', 'uilleann pipes', 'highland pipes'],
+    uiType: 'pads', accent: '#4B0082',
+    description: 'Ancient wind instrument with drone and chanter voices.',
+    voices: [
+      { label: 'DRONE',  note: 'A2'  },
+      { label: 'G',      note: 'G3'  },
+      { label: 'A',      note: 'A3'  },
+      { label: 'B',      note: 'B3'  },
+      { label: 'C#',     note: 'C#4' },
+      { label: 'D',      note: 'D4'  },
+      { label: 'E',      note: 'E4'  },
+      { label: 'HIGH',   note: 'G4'  },
+    ],
+  },
+
+  shakuhachi: {
+    id: 'shakuhachi', name: 'Shakuhachi', family: 'wind', culture: 'Japanese',
+    aliases: ['shakuhachi', 'bamboo flute', 'zen flute'],
+    uiType: 'strings', accent: '#3CB371',
+    description: 'Vertical bamboo flute — meditative, hauntingly beautiful.',
+    voices: [
+      { label: 'C4',  note: 'C4'  },
+      { label: 'D4',  note: 'D4'  },
+      { label: 'F4',  note: 'F4'  },
+      { label: 'G4',  note: 'G4'  },
+      { label: 'A4',  note: 'A4'  },
+      { label: 'C5',  note: 'C5'  },
+      { label: 'D5',  note: 'D5'  },
+      { label: 'F5',  note: 'F5'  },
+    ],
+  },
+
+  saz: {
+    id: 'saz', name: 'Saz', family: 'strings', culture: 'Turkish / Middle Eastern',
+    aliases: ['saz', 'baglama', 'bowed lute', 'mediterranean lute'],
+    uiType: 'strings', accent: '#D4AF37',
+    description: 'Turkish long-necked lute with warm, vibrant sound.',
+    voices: [
+      { label: 'A1',  note: 'A1'  },
+      { label: 'D2',  note: 'D2'  },
+      { label: 'A2',  note: 'A2'  },
+      { label: 'D3',  note: 'D3'  },
+      { label: 'A3',  note: 'A3'  },
+      { label: 'D4',  note: 'D4'  },
+      { label: 'A4',  note: 'A4'  },
+      { label: 'E5',  note: 'E5'  },
+    ],
+  },
+
+  panpipe: {
+    id: 'panpipe', name: 'Panpipes', family: 'wind', culture: 'Andean / South American',
+    aliases: ['panpipes', 'syrinx', 'pan flute', 'zampoña'],
+    uiType: 'strings', accent: '#2F4F4F',
+    description: 'Ancient instrument made from reeds — voice of the Andes.',
+    voices: [
+      { label: 'C4',  note: 'C4'  },
+      { label: 'D4',  note: 'D4'  },
+      { label: 'E4',  note: 'E4'  },
+      { label: 'G4',  note: 'G4'  },
+      { label: 'A4',  note: 'A4'  },
+      { label: 'C5',  note: 'C5'  },
+      { label: 'D5',  note: 'D5'  },
+      { label: 'E5',  note: 'E5'  },
+    ],
+  },
+
+  theremin: {
+    id: 'theremin', name: 'Theremin', family: 'wind', culture: 'Modern / Experimental',
+    aliases: ['theremin', 'electronic', 'theremin instrument'],
+    uiType: 'pads', accent: '#FF6347',
+    description: 'Early electronic instrument played by moving hands in air.',
+    voices: [
+      { label: 'C3',  note: 'C3'  },
+      { label: 'F3',  note: 'F3'  },
+      { label: 'A3',  note: 'A3'  },
+      { label: 'C4',  note: 'C4'  },
+      { label: 'F4',  note: 'F4'  },
+      { label: 'A4',  note: 'A4'  },
+      { label: 'C5',  note: 'C5'  },
+      { label: 'F5',  note: 'F5'  },
+    ],
+  },
+
+  qanun: {
+    id: 'qanun', name: 'Qanun', family: 'strings', culture: 'Arab / Middle Eastern',
+    aliases: ['qanun', 'kanun', 'zither'],
+    uiType: 'strings', accent: '#B22222',
+    description: 'Trapezoid zither with over 80 strings — Middle Eastern classic.',
+    voices: [
+      { label: 'D3',  note: 'D3'  },
+      { label: 'E3',  note: 'E3'  },
+      { label: 'F#3', note: 'F#3' },
+      { label: 'G3',  note: 'G3'  },
+      { label: 'A3',  note: 'A3'  },
+      { label: 'B3',  note: 'B3'  },
+      { label: 'C#4', note: 'C#4' },
+      { label: 'D4',  note: 'D4'  },
+    ],
+  },
+
+  bodhrán: {
+    id: 'bodhrán', name: 'Bodhrán', family: 'percussion', culture: 'Irish',
+    aliases: ['bodhrán', 'bodhran', 'irish drum', 'frame drum'],
+    uiType: 'pads', accent: '#8B7355',
+    description: 'Hand-held frame drum — rhythmic pulse of Irish music.',
+    voices: [
+      { label: 'BASS',  note: 'D2'  },
+      { label: 'LOW',   note: 'G2'  },
+      { label: 'MID',   note: 'C3'  },
+      { label: 'HI',    note: 'G3'  },
+      { label: 'EDGE',  note: 'D4'  },
+      { label: 'RIM',   note: 'A3'  },
+      { label: 'TONE',  note: 'F3'  },
+      { label: 'SLAP',  note: 'Bb3' },
+    ],
+  },
+
+  mandolin: {
+    id: 'mandolin', name: 'Mandolin', family: 'strings', culture: 'Italian / Folk',
+    aliases: ['mandolin', 'mandoline', 'stringed folk instrument'],
+    uiType: 'strings', accent: '#B8860B',
+    description: 'Small lute with 8 strings — bright, piercing tone.',
+    voices: [
+      { label: 'G3',  note: 'G3'  },
+      { label: 'D4',  note: 'D4'  },
+      { label: 'A4',  note: 'A4'  },
+      { label: 'E5',  note: 'E5'  },
+      { label: 'B4',  note: 'B4'  },
+      { label: 'F#4', note: 'F#4' },
+      { label: 'C#5', note: 'C#5' },
+      { label: 'G#5', note: 'G#5' },
+    ],
+  },
+
+  gamelan: {
+    id: 'gamelan', name: 'Gamelan', family: 'percussion', culture: 'Indonesian',
+    aliases: ['gamelan', 'gong', 'bonang', 'metallophone'],
+    uiType: 'pads', accent: '#FFB90F',
+    description: 'Ensemble of bronze percussion — hypnotic, layered sound.',
+    voices: [
+      { label: 'LOW',   note: 'G1'  },
+      { label: 'BASS',  note: 'D2'  },
+      { label: 'MID',   note: 'G2'  },
+      { label: 'HI',    note: 'D3'  },
+      { label: 'BRIGHT', note: 'G3' },
+      { label: 'PING',  note: 'D4'  },
+      { label: 'BELL',  note: 'G4'  },
+      { label: 'CLEAR', note: 'D5'  },
+    ],
+  },
+
+  ocarina: {
+    id: 'ocarina', name: 'Ocarina', family: 'wind', culture: 'Central American / Asian',
+    aliases: ['ocarina', 'ceramic flute', 'vessel flute'],
+    uiType: 'strings', accent: '#D2691E',
+    description: 'Ancient ceramic vessel flute — sweet, hollow tones.',
+    voices: [
+      { label: 'C4',  note: 'C4'  },
+      { label: 'D4',  note: 'D4'  },
+      { label: 'E4',  note: 'E4'  },
+      { label: 'F4',  note: 'F4'  },
+      { label: 'G4',  note: 'G4'  },
+      { label: 'A4',  note: 'A4'  },
+      { label: 'B4',  note: 'B4'  },
+      { label: 'C5',  note: 'C5'  },
+    ],
+  },
+
   // ── Fallback ──────────────────────────────────────────────────────────
   unknown: {
     id: 'unknown', name: 'Mystery Instrument', family: 'percussion', culture: 'Unknown',
