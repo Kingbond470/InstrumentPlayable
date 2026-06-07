@@ -1,6 +1,7 @@
 import type { Metadata } from 'next';
 import './globals.css';
 import { LanguageProvider } from '@/contexts/LanguageContext';
+import AnalyticsProvider from '@/components/AnalyticsProvider';
 import { BASE_URL, generateWebAppSchema } from '@/lib/seo';
 
 export const metadata: Metadata = {
@@ -103,9 +104,11 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
         <link rel="manifest" href="/manifest.json" />
       </head>
       <body>
-        <LanguageProvider>
-          {children}
-        </LanguageProvider>
+        <AnalyticsProvider>
+          <LanguageProvider>
+            {children}
+          </LanguageProvider>
+        </AnalyticsProvider>
       </body>
     </html>
   );

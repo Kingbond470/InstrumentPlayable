@@ -5,6 +5,7 @@ import { T } from '@/tokens/design';
 import type { InstrumentDef } from '@/types/instrument';
 import { getInstrumentEngine } from '@/audio/InstrumentEngine';
 import { useViewport } from '@/hooks/useViewport';
+import { trackEvent } from '@/lib/analytics';
 import { now } from 'tone';
 import type { HitEvent } from '@/audio/MidiExport';
 
@@ -21,6 +22,21 @@ export default function StringPlayer({ instrument, photo, hitLog, onHit }: Props
   const timeouts = React.useRef<Set<ReturnType<typeof setTimeout>>>(new Set());
 
   React.useEffect(() => () => { timeouts.current.forEach(clearTimeout); }, []);
+
+  // Track instrument play duration
+  React.useEffect(() => {
+    const startTime = Date.now();
+    return () => {
+      const duration_sec = Math.round((Date.now() - startTime) / 1000);
+      if (duration_sec > 0) {
+        trackEvent('instrument_played', {
+          instrumentId: instrument.id,
+          instrumentName: instrument.name,
+          duration_sec,
+        });
+      }
+    };
+  }, [instrument.id, instrument.name]);
 
   const pluck = async (i: number) => {
     const engine = getInstrumentEngine();

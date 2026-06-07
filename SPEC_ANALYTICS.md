@@ -1,133 +1,97 @@
 ---
-title: Analytics Tracking (Vercel Web Analytics)
-status: shipped
+title: Analytics Tracking & Measurement
+status: in-progress
 effort: M (3h)
-shipped: 2026-05-31
+shipped: null
 ---
 
 ## Summary
 
-Track user behavior: instrument identification, kit saves, shares, recordings. Vercel Web Analytics + custom events. Measure engagement funnel, share K-factor, identification accuracy.
-
----
-
-## Problem
-
-No visibility into how users interact with app. What's working? What's not? Can't improve without data.
+Instrument Playable has no observability. Can't measure identification accuracy, share rate, session funnel, or user retention. Add event tracking to answer: *what's working?*
 
 ---
 
 ## Goals
 
-- ✅ Track core events (identify, save, share, record, export)
-- ✅ Measure engagement funnel (upload → identify → play → save)
-- ✅ Calculate share K-factor (virality metric)
-- ✅ Monitor identification accuracy (% correct first-guess)
-- ✅ Zero PII (anonymous by default)
-- ✅ Vercel Web Analytics integration (built-in, no external service)
+- Track user journey (session start → instrument played → recording → share)
+- Measure identification accuracy (AI confidence, user confirm/correct rate)
+- Measure engagement (share rate, save rate, time-on-instrument)
+- Measure retention (D1, D7 return rate via localStorage)
+- Instrument popularity (which instruments most played)
+- Device breakdown (mobile vs desktop performance)
 
 ---
 
 ## Success Criteria
 
-- [x] trackEvent() function works
-- [x] Events object defines 18+ event names
-- [x] Window.va integration for Vercel Web Analytics
-- [x] Fallback console.log in dev mode
-- [x] usePageView hook for page tracking
-- [x] No PII in events (no email, no user IDs)
-- [x] Custom properties tracked (instrument, kit name, duration, etc.)
-- [x] Dashboard shows events in Vercel (5-10min delay)
-- [x] Export to CSV/JSON for analysis
+| Metric | Target | Why |
+|--------|--------|-----|
+| Session → instrument played | ≥60% | Core funnel |
+| Session → recording shared | ≥30% | Viral coefficient |
+| Identification accuracy | ≥85% first-guess | Claude Sonnet quality |
+| D1 retention | ≥10% | Casual engagement |
+| D7 retention | ≥5% | Habit formation |
+| Avg session duration | ≥2 min | Engagement depth |
+| Instruments per session | ≥1.5 | Exploration |
 
 ---
 
-## Design
+## Implementation (3.5h)
 
-### Core Events
+**Phase 1: Vercel Analytics (0.5h)**
+- Enable in Vercel dashboard (free, included)
+- Automatic Core Web Vitals + page views
 
-| Event | When | Properties |
-|-------|------|-----------|
-| `photo_uploaded` | User picks image | format (jpeg/png) |
-| `instrument_identified` | Claude Vision responds | instrument, confidence |
-| `instrument_confirmed` | User confirms identification | instrument, via (photo/text) |
-| `instrument_played` | User hits pad/voice | voice_index, intensity |
-| `prompt_entered` | Text prompt flow | prompt_length |
-| `kit_generated` | LLM generates kit | instruments, bpm, key |
-| `pad_hit` | Drum pad struck | pad_index, velocity |
-| `kit_saved` | User saves kit | kit_name, via (localStorage/backend) |
-| `kit_shared` | User generates share link | kit_id, platform (inferred from UA) |
-| `recording_started` | MediaRecorder starts | instrument |
-| `recording_stopped` | MediaRecorder stops | duration (seconds) |
-| `midi_exported` | MIDI file downloaded | instrument_count, duration |
-| `wav_exported` | WAV file downloaded | duration, format |
-| `login_attempted` | Email submitted | provider (magic-link) |
-| `login_succeeded` | Session created | email_domain |
-| `logout` | User logs out | session_duration_seconds |
-| `library_opened` | User clicks library | via_page (play/capture) |
-| `kit_loaded_from_library` | User loads saved kit | kit_name, age_days |
+**Phase 2: Custom Event Tracking (1.5h)**
+- Create src/lib/analytics.ts with trackEvent()
+- Place tracking in 8 components (photo, identify, play, export, save, share, create, session)
 
-### Implementation
+**Phase 3: Backend Endpoint (1h)**
+- Create src/app/api/analytics/route.ts
+- Collect events via sendBeacon()
 
-```typescript
-// lib/analytics.ts
-trackEvent(name, properties?)
-  ↓
-  if (window.va) window.va.track(name, properties)
-  else console.log('[analytics]', name, properties) // dev fallback
-```
-
-### Vercel Integration
-
-1. Enable in Vercel dashboard (one toggle)
-2. Deploy code
-3. Events appear in Vercel Analytics tab (5-10min)
-4. Export to CSV: Vercel dashboard → Analytics → Export
+**Phase 4: Test (0.5h)**
+- End-to-end test on staging
+- Verify events flow to /api/analytics
 
 ---
 
-## Acceptance Tests
+## Events to Track
 
-| Scenario | Expected |
-|----------|----------|
-| Upload photo | trackEvent('photo_uploaded', {format: 'jpeg'}) called |
-| Identify instrument | trackEvent('instrument_identified', {instrument: 'sitar', confidence: 0.94}) |
-| Save kit to localStorage | trackEvent('kit_saved', {via: 'localStorage'}) |
-| Share kit | trackEvent('kit_shared', {kit_id: '...'}) |
-| Export WAV | trackEvent('wav_exported', {duration: 42}) |
-| Page load | trackEvent('page_view', {page: '/play'}) |
-| Dev console | Events log to console (remove in prod) |
-| Vercel dashboard | Events appear after 5-10min |
-| Export CSV | Includes all events for last 30 days |
-
----
-
-## References
-
-- [analytics.ts](app/src/lib/analytics.ts)
-- [ANALYTICS.md](ANALYTICS.md) — setup guide
-- Vercel Web Analytics docs: https://vercel.com/docs/analytics
+| Event | When | Data |
+|-------|------|------|
+| session_start | Page load | device, source |
+| photo_captured | File selected | timestamp |
+| instrument_identified | AI response | instrumentId, confidence, time_ms |
+| user_confirmed | User confirms | instrumentId |
+| user_corrected | User corrects | original, corrected |
+| instrument_played | Component unmount | instrumentId, duration_sec |
+| recording_exported | Download | format (wav/webm/midi) |
+| kit_saved | Save button | kitName |
+| kit_shared | Share button | via (copy/twitter/discord) |
+| collection_created | Modal submit | instrumentCount |
+| session_end | Page unload | duration_sec, eventCount |
 
 ---
 
-## Metrics to Monitor
+## Component Placement
 
-| Metric | Baseline | Target | Why |
-|--------|----------|--------|-----|
-| Identification accuracy | TBD after 1k samples | ≥85% | Quality of Claude Vision |
-| Engagement funnel | TBD | Upload→Identify: 90%, Identify→Play: 70%, Play→Save: 30% | Conversion rates |
-| Share K-factor | TBD | >0.5 | Virality (1 user brings 0.5 new users) |
-| Time-to-value | TBD | <10s upload→play | Product delight |
-| Session length | TBD | >2min median | Time-on-site |
-| Bounce rate | TBD | <40% | Engagement |
+- layout.tsx: session_start, session_end
+- PhotoStep.tsx: photo_captured
+- identify-instrument API: instrument_identified
+- ConfirmStep.tsx: user_confirmed, user_corrected
+- StringPlayer.tsx: instrument_played
+- InstrumentEngine.ts: recording_exported
+- KitCard.tsx: kit_saved, kit_shared
+- CreateCollectionModal.tsx: collection_created
 
 ---
 
-## Future
+## MVP Success = Week 1 Data
 
-- [ ] Cohort analysis (compare users who share vs. don't)
-- [ ] Retention curves (day 1, 7, 30 return rates)
-- [ ] A/B testing (UI variants)
-- [ ] Funnels (multi-step flows)
-- [ ] Heatmaps (on-screen interaction)
-- [ ] Custom dashboard (Datadog, Mixpanel)
+Can answer:
+- What % of sessions play an instrument? (target: 60%)
+- What % of players share? (target: 30%)
+- Top 3 instruments by plays?
+- Avg time per instrument? (target: >30s)
+- Mobile vs desktop engagement?

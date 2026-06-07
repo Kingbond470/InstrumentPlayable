@@ -1,69 +1,60 @@
-/**
- * Analytics tracking via Vercel Web Analytics.
- * Captures: instrument identified, kit saved, shared, recorded.
- * No sensitive data. Anonymous unless authenticated.
- */
+// Simple event tracking via sendBeacon() — doesn't block page unload
+// Events collected by src/app/api/analytics/route.ts
 
-import { useEffect } from 'react';
-
-// Track custom event
-export function trackEvent(name: string, properties?: Record<string, string | number | boolean>) {
-  if (typeof window === 'undefined') return;
-
-  // Vercel Web Analytics
-  if (window.va) {
-    window.va.track(name, properties);
-  }
-
-  // Fallback: log locally (remove in production)
-  if (process.env.NODE_ENV === 'development') {
-    console.log('[analytics]', name, properties);
-  }
+export interface AnalyticsEvent {
+  name: string;
+  timestamp: number;
+  [key: string]: any;
 }
 
-// Core events
+// Event name constants for backwards compatibility
 export const Events = {
-  // Photo flow
-  PHOTO_UPLOADED: 'photo_uploaded',
-  INSTRUMENT_IDENTIFIED: 'instrument_identified',
-  INSTRUMENT_CONFIRMED: 'instrument_confirmed',
   INSTRUMENT_PLAYED: 'instrument_played',
-
-  // Text flow
-  PROMPT_ENTERED: 'prompt_entered',
-  KIT_GENERATED: 'kit_generated',
   PAD_HIT: 'pad_hit',
-
-  // Actions
+  SESSION_START: 'session_start',
+  SESSION_END: 'session_end',
+  PHOTO_CAPTURED: 'photo_captured',
+  INSTRUMENT_IDENTIFIED: 'instrument_identified',
+  USER_CONFIRMED: 'user_confirmed',
+  USER_CORRECTED: 'user_corrected',
+  RECORDING_EXPORTED: 'recording_exported',
   KIT_SAVED: 'kit_saved',
   KIT_SHARED: 'kit_shared',
-  RECORDING_STARTED: 'recording_started',
-  RECORDING_STOPPED: 'recording_stopped',
-  MIDI_EXPORTED: 'midi_exported',
-  WAV_EXPORTED: 'wav_exported',
+  COLLECTION_CREATED: 'collection_created',
+} as const;
 
-  // Auth
-  LOGIN_ATTEMPTED: 'login_attempted',
-  LOGIN_SUCCEEDED: 'login_succeeded',
-  LOGOUT: 'logout',
+let eventCount = 0;
 
-  // Library
-  LIBRARY_OPENED: 'library_opened',
-  KIT_LOADED_FROM_LIBRARY: 'kit_loaded_from_library',
+export const trackEvent = (eventName: string, data?: Record<string, any>) => {
+  if (typeof window === 'undefined') return; // SSR guard
+
+  eventCount++;
+  const event: AnalyticsEvent = {
+    name: eventName,
+    timestamp: Date.now(),
+    ...data,
+  };
+
+  // Fire and forget — don't block user interaction
+  try {
+    // Use sendBeacon if available (doesn't block unload)
+    if (navigator.sendBeacon) {
+      navigator.sendBeacon(
+        '/api/analytics',
+        JSON.stringify(event)
+      );
+    } else {
+      // Fallback: fetch with keepalive
+      fetch('/api/analytics', {
+        method: 'POST',
+        body: JSON.stringify(event),
+        keepalive: true,
+        headers: { 'Content-Type': 'application/json' },
+      }).catch(() => {}); // Silently fail if offline
+    }
+  } catch (err) {
+    // Network errors, do nothing
+  }
 };
 
-// Hook for page views (automatically tracked by Vercel, but useful for custom logic)
-export function usePageView(name: string) {
-  useEffect(() => {
-    trackEvent('page_view', { page: name });
-  }, [name]);
-}
-
-// Declare global va object
-declare global {
-  interface Window {
-    va?: {
-      track: (name: string, properties?: Record<string, string | number | boolean>) => void;
-    };
-  }
-}
+export const getEventCount = () => eventCount;

@@ -62,25 +62,19 @@ export function useMIDIInstrument({
           activeNotesRef.current.set(midiNote, voiceIndex);
           engine.hit(voiceIndex);
 
-          if (typeof window !== 'undefined' && window.va) {
-            window.va.track('midi_note_on', { midiNote, voiceIndex, velocity });
-          }
+          // Note: MIDI tracking can be added via trackEvent in future
         });
 
         midi.onNoteOff((midiNote) => {
           activeNotesRef.current.delete(midiNote);
 
-          if (typeof window !== 'undefined' && window.va) {
-            window.va.track('midi_note_off', { midiNote });
-          }
+          // Note: MIDI tracking can be added via trackEvent in future
         });
 
         midi.onPitchBend((pitch) => {
           // Pitch bend affects the last active note
           if (activeNotesRef.current.size > 0) {
-            if (typeof window !== 'undefined' && window.va) {
-              window.va.track('midi_pitch_bend', { pitch });
-            }
+            // Note: MIDI tracking can be added via trackEvent in future
           }
         });
 

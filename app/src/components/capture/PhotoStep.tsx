@@ -3,6 +3,7 @@
 import React from 'react';
 import { T } from '@/tokens/design';
 import { useViewport } from '@/hooks/useViewport';
+import { trackEvent } from '@/lib/analytics';
 
 interface Props {
   onPhoto: (dataUrl: string) => void;
@@ -26,6 +27,7 @@ export default function PhotoStep({ onPhoto }: Props) {
 
   const handleFile = (file: File) => {
     if (!file.type.startsWith('image/')) return;
+    trackEvent('photo_captured', { fileSize: file.size, fileType: file.type });
     const reader = new FileReader();
     reader.onload = (e) => { if (e.target?.result) onPhoto(e.target.result as string); };
     reader.readAsDataURL(file);
