@@ -1,9 +1,12 @@
 import { Suspense } from 'react';
+import dynamic from 'next/dynamic';
 import type { Metadata } from 'next';
 import { NextRequest } from 'next/server';
 import MobileGuard from '@/components/MobileGuard';
-import CaptureFlow from '@/components/capture/CaptureFlow';
 import { resolveInstrument } from '@/lib/instrumentLibrary';
+
+// Lazy-load CaptureFlow to defer Tone.js (46KB) loading until route is accessed
+const CaptureFlow = dynamic(() => import('@/components/capture/CaptureFlow'));
 
 export async function generateMetadata(
   { searchParams }: { searchParams: Promise<{ instrument?: string }> },

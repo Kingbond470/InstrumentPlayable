@@ -1,7 +1,10 @@
 import { Suspense } from 'react';
+import dynamic from 'next/dynamic';
 import type { Metadata } from 'next';
-import PlayPageClient from './page.client';
 import { decodeKit }  from '@/lib/shareUrl';
+
+// Lazy-load PlayPageClient to defer Tone.js (46KB) loading until route is accessed
+const PlayPageClient = dynamic(() => import('./page.client'));
 
 // P1 fix: dynamic OG meta tags so shared kit URLs render rich previews in
 // Discord / iMessage / Twitter instead of a blank card.
